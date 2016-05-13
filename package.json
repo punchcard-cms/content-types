@@ -15,6 +15,10 @@
     "Scott Nath <snath@us.ibm.com>",
     "Sam Richard <snugug@us.ibm.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:punchcard-cms/punchcard-content-types.git"
+  },
   "license": "Apache-2.0",
   "dependencies": {
     "browserify": "^13.0.1",
