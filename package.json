@@ -1,0 +1,58 @@
+{
+  "name": "punchcard-content-types",
+  "version": "0.0.7",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "npm run nyc",
+    "lint": "eslint ./lib/**/*.js ./lib/*.js ./index.js",
+    "ava": "ava | tap-diff",
+    "nyc": "nyc --all npm run ava",
+    "start": "node ./"
+  },
+  "contributors": [
+    "Scott Nath <snath@us.ibm.com>",
+    "Sam Richard <snugug@us.ibm.com>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "browserify": "^13.0.1",
+    "config": "^1.19.0",
+    "deepmerge": "^0.2.10",
+    "isomorphic-ensure": "^1.0.1",
+    "js-yaml": "^3.5.3",
+    "lodash": "^4.6.1",
+    "node-dir": "^0.1.11",
+    "node-sass": "^3.4.2",
+    "nunjucks": "^2.4.0",
+    "plugabilly": "0.0.0",
+    "uuid": "^2.0.2"
+  },
+  "devDependencies": {
+    "ava": "^0.12.0",
+    "eslint": "2.2.0",
+    "eslint-config-punchcard": "^0.1.0",
+    "nyc": "^6.0.0",
+    "open-exchange-rates": "^0.3.0",
+    "raw-loader": "^0.5.1",
+    "tap-diff": "^0.1.1"
+  },
+  "engines": {
+    "node": "5.7",
+    "npm": "^3.6"
+  },
+  "nyc": {
+    "exclude": [
+      "tests/**/*",
+      "config/**/*"
+    ]
+  },
+  "ava": {
+    "files": [
+      "tests/*.js"
+    ],
+    "failFast": true,
+    "tap": true
+  }
+}

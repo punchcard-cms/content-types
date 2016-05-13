@@ -1,0 +1,13 @@
+extends:
+  - punchcard
+
+env:
+  es6: true
+
+rules:
+  no-empty-label: 0 # hides deprecated rule
+  space-after-keywords: 0 # hides deprecated rule
+  space-before-keywords: 0 # hides deprecated rule
+  space-return-throw-case: 0 # hides deprecated rule
+  keyword-spacing: 2 # replaces `space-after-keywords`, `space-before-keywords`, and `space-return-throw-case`
+  strict: 1 # fixes a circular bug
