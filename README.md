@@ -1,12 +1,18 @@
-# Punchcard Content Types [![Build Status](https://travis-ci.org/punchcard-cms/punchcard-content-types.svg?branch=master)](https://travis-ci.org/punchcard-cms/punchcard-content-types)
+# Punchcard Content Types [![Build Status](https://travis-ci.org/punchcard-cms/content-types.svg?branch=master)](https://travis-ci.org/punchcard-cms/content-types)
 
-Combines with [Input Plugins](https://github.com/punchcard-cms?utf8=%E2%9C%93&query=input-plugin) to create Content Types in the Punchcard CMS
+Combines with [Input Plugins](https://www.npmjs.com/browse/keyword/input-plugin) to create Content Types in the Punchcard CMS
+
+## Installation
+
+```bash
+npm install punchcard-content-types --save
+```
 
 ## Usage
 
 ### Defining a Content Type
 
-Content Types are defined as [YAML](http://yaml.org/) files. They include a name, a description, and an array of attributes describing which [Input Plugins](https://github.com/punchcard-cms?utf8=%E2%9C%93&query=input-plugin) should be used and configured. By default, content types will be looked for in the `content-types` directory from the current running process. If using the [config](https://www.npmjs.com/package/config) module, `contentTypes.directory` can be set to the path being used, again relative to the directory of the current running process.
+Content Types are defined as [YAML](http://yaml.org/) files. They include a name, a description, and an array of attributes describing which [Input Plugins](https://www.npmjs.com/browse/keyword/input-plugin) should be used and configured. By default, content types will be looked for in the `content-types` directory from the current running process. If using the [config](https://www.npmjs.com/package/config) module, `contentTypes.directory` can be set to the path being used, again relative to the directory of the current running process.
 
 ```yaml
 name: My Awesome Content Type
