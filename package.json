@@ -41,7 +41,7 @@
   "devDependencies": {
     "ava": "^0.12.0",
     "eslint": "2.2.0",
-    "eslint-config-punchcard": "^0.1.0",
+    "eslint-config-punchcard": "^1.0.0",
     "nyc": "^6.0.0",
     "open-exchange-rates": "^0.3.0",
     "raw-loader": "^0.5.1",
