@@ -14,7 +14,8 @@
     "lint": "eslint ./lib/**/*.js ./lib/*.js ./index.js",
     "ava": "ava | tap-diff",
     "nyc": "nyc --all npm run ava",
-    "start": "node ./"
+    "start": "node ./",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "contributors": [
     "Scott Nath <snath@us.ibm.com>",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "ava": "^0.12.0",
+    "coveralls": "^2.11.9",
     "eslint": "^2",
     "eslint-config-punchcard": "^1.0.0",
     "input-plugin-datetime": "0.0.1",
