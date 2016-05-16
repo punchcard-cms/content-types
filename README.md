@@ -1,4 +1,4 @@
-# Punchcard Content Types [![Build Status](https://travis-ci.org/punchcard-cms/content-types.svg?branch=master)](https://travis-ci.org/punchcard-cms/content-types)
+# Punchcard Content Types [![Build Status](https://travis-ci.org/punchcard-cms/content-types.svg?branch=master)](https://travis-ci.org/punchcard-cms/content-types) [![Coverage Status](https://coveralls.io/repos/github/punchcard-cms/content-types/badge.svg?branch=master)](https://coveralls.io/github/punchcard-cms/content-types?branch=master)
 
 Combines with [Input Plugins](https://www.npmjs.com/browse/keyword/input-plugin) to create Content Types in the Punchcard CMS
 
