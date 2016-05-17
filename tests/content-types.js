@@ -43,9 +43,18 @@ test('merged', t => {
     });
 });
 
+// waiting on rejection story
+// test('merged with bad param', t => {
+//   return types(fooContentObj)
+//     .catch(result => {
+//       console.log(result);
+//       t.is(result, '[Error: Content types must be an array]', 'Gotta send an array');
+//     });
+// })
+
 test('merged with correct param', t => {
   fooContentObj.id = 'foo-rific';
-  return types(fooContentObj)
+  return types([fooContentObj])
     .then(result => {
       t.is(result[0].name, 'FooRific', 'Get first content type name');
       t.is(result[0].description, 'A very foo content model.', 'Get first content type desc');
