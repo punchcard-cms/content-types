@@ -36,10 +36,10 @@ test('merged', t => {
     .then(result => {
       t.is(result[0].name, 'Content Type BAR', 'Get first content type name');
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
-      t.is(result[0].id, 'content-type-bar', 'Get first content type id');
+      t.is(result[0].id, 'bar', 'Get first content type id');
       t.is(result[1].name, 'Content Type FOO', 'Get second content type name');
       t.is(result[1].description, 'Foo Bar Baz', 'Get second content type desc');
-      t.is(result[1].id, 'content-type-foo', 'Get second content type id');
+      t.is(result[1].id, 'foo', 'Get second content type id');
     });
 });
 
