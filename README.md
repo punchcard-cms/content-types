@@ -84,11 +84,35 @@ contentTypes().then(types => {
 });
 ```
 
+#### Merged Content Type using config
+
+Will return an `Array` of content type definitions (that contains only one content type), each being an `Object`, with attributes replaced by individual Input Plugin instances that have been merged with the raw content type options. There are no parameters to pass in.
+
+```javascript
+const contentTypes = require('punchcard-content-types');
+const fooContentObj = {
+  'name': 'FooRific',
+  'description': 'A very foo content model.',
+  'attributes': [
+    {
+      'type': 'email',
+      'id': 'email',
+      'name': 'Email',
+      'description': 'Your email is your username',
+    },
+  ],
+};
+contentTypes(fooContentObj).then(types => {
+  // Array with one Content Type
+  console.log(types);
+});
+```
+
 #### Single Content Type
 
 Will return an `Object` of a single merged content type, optionally with userland config that will be merged on top of the merged content type. Users may choose to pass in the `Array` of merged content types in for it to work with, or have it load and merge content types itself.
 
-* `type` **Required** - `machine` name of content type to be retrieved.
+* `type` **Required** - `id` name of content type to be retrieved.
 * `config` - `Object` with keys matching input plugin `id` from content type definitions, values being object containing the keys from `inputs` and values being object to be merged.
 * `loadedTypes` - `Array` of loaded, merged content types
 
