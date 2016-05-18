@@ -102,7 +102,9 @@ const fooContentObj = {
     },
   ],
 };
-contentTypes(fooContentObj).then(types => {
+
+// Content Type object must be an array
+contentTypes([fooContentObj]).then(types => {
   // Array with one Content Type
   console.log(types);
 });
