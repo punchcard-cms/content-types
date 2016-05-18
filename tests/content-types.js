@@ -18,7 +18,7 @@ const fooContentObj = {
 };
 
 test('Content Types', t => {
-  return types.only('content-type-bar', {
+  return types.only('bar', {
     'my-textarea': {
       textarea: {
         value: 'Hello World I am here'
