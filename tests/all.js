@@ -2,7 +2,6 @@ import test from 'ava';
 import types from '../';
 
 test('Everything Ever', t => {
-  console.log(t);
   t.is(typeof types, 'function', 'Content Types exports a function');
 
   t.is(typeof types.raw, 'function', 'Submodule `raw` exists and is a function');

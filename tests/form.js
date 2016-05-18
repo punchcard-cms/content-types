@@ -5,7 +5,7 @@ import util from 'util';
 import fs from 'fs';
 
 test('Form Generation', t => {
-  return types.only('content-type-foo').then(result => {
+  return types.only('foo').then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
