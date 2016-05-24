@@ -1,0 +1,12 @@
+name: Content Type BAR
+description: Bar Baz Foo
+id: bar
+attributes:
+  - type: text
+    id: something-new
+    name: SOme New THING
+    description: I am the Bar Content Type Config text field description
+  - type: textarea
+    id: my-textarea
+    name: My Awesome Text Area
+    description: I am the Bar Content Type Config textarea description
