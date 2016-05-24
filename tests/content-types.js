@@ -200,9 +200,44 @@ test('merged with correct param', t => {
 
   return types([testCT])
     .then(result => {
-      // console.log(util.inspect(result, false, null));
-      t.is(result[0].name, 'FooRific', 'Get first content type name');
-      t.is(result[0].description, 'A very foo content model.', 'Get first content type desc');
-      t.is(result[0].id, 'foo-rific', 'Get first content type id');
+      const merged = result[0];
+      console.log(util.inspect(result, false, null));
+
+      t.is(result.length, 1, 'There is one result');
+
+      t.is(merged.name, 'FooRific', 'Content type name does not change');
+      t.is(merged.description, 'A very foo content model.', 'Content type description does not change');
+      t.is(merged.id, 'foo-rific', 'Content type ID does not change');
+      t.true(merged.hasOwnProperty('attributes'), 'Content type has attributes');
+      t.is(merged.attributes.length, 2, 'Content type has two attributes');
+
+      merged.attributes.forEach((attr, i) => {
+        let base = testCT.attributes[i];
+
+        t.is(attr.name, base.name, 'Attribute name does not change');
+        t.is(attr.description, base.description, 'Attribute description does not change');
+        t.is(attr.id, base.id, 'Attribute ID does not change');
+        t.is(attr.type, base.type, 'Attribute type does not change');
+
+        t.true(attr.hasOwnProperty('validation'), 'Attribute has validation');
+        t.true(attr.hasOwnProperty('html'), 'Attribute has HTML');
+        t.true(attr.hasOwnProperty('inputs'), 'Attribute has inputs');
+
+        if (Object.keys(attr.inputs).length === 1) {
+          let input = Object.keys(attr.inputs)[0];
+
+          if (base.hasOwnProperty('inputs')) {
+            if (base.inputs.hasOwnProperty(input)) {
+              if (base.inputs[input].hasOwnProperty('label')) {
+                t.is(attr.inputs[input].label, base.inputs[input].label, 'Input label is used if present in base if one input');
+              }
+            }
+          }
+          else {
+            t.is(attr.inputs[input].label, base.name, 'Input label is set to name if one input')
+          }
+        }
+
+      });
     });
 })
