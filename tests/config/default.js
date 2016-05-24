@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-  contentTypes: {
+  content: {
     directory: './fixtures/content-types'
   }
 };
