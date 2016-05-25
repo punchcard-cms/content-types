@@ -10,3 +10,9 @@ attributes:
     id: my-textarea
     name: My Awesome Text Area
     description: I am the Bar Content Type Config textarea description
+  - type: email
+    id: my-email
+    name: Email Address of Awesome
+    repeatable:
+      min: 1
+      max: 3
