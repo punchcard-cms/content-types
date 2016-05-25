@@ -5,7 +5,7 @@ import util from 'util';
 import fs from 'fs';
 
 test('Form Generation', t => {
-  return types.only('foo').then(result => {
+  return types.one('foo').then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
@@ -17,7 +17,7 @@ test('Form Generation', t => {
 });
 
 test('Form Generation, Again', t => {
-  return types.only('foo').then(result => {
+  return types.one('foo').then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
@@ -29,7 +29,7 @@ test('Form Generation, Again', t => {
 });
 
 test('Form Generation, Again Again', t => {
-  return types.only('bar').then(result => {
+  return types.one('bar').then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');

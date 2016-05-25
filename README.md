@@ -130,7 +130,7 @@ const config = {
   }
 }
 
-contentTypes.only('my-awesome-content-type', config).then(types => {
+contentTypes.one('my-awesome-content-type', config).then(types => {
   // Single Content Type
   console.log(types);
 });
