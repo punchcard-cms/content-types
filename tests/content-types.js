@@ -201,7 +201,8 @@ test('merged with correct param', t => {
   return types([testCT])
     .then(result => {
       const merged = result[0];
-      console.log(util.inspect(result, false, null));
+
+      // console.log(util.inspect(result, false, null));
 
       t.is(result.length, 1, 'There is one result');
 
