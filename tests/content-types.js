@@ -5,7 +5,7 @@ import util from 'util';
 import fs from 'fs';
 
 test('Content Types', t => {
-  return types.only('bar', {
+  return types.one('bar', {
     'my-textarea': {
       textarea: {
         value: 'Hello World I am here'
