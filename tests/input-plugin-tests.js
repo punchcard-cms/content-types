@@ -159,19 +159,19 @@ test('Input Plugin Tests Requires Test and Plugin', t => {
   if (plugin(false, inputPluginSingle) === 'you must include a test runner') {
     validated = true;
   }
-  t.ok(validated, 'A test runner must be parameter 1');
+  t.true(validated, 'A test runner must be parameter 1');
 
   validated = false;
   if (plugin(test, false) === 'you must include a plugin to test') {
     validated = true;
   }
-  t.ok(validated, 'The plugin must be parameter 2');
+  t.true(validated, 'The plugin must be parameter 2');
 
   validated = false;
   if (plugin(test, 'foo') === 'plugin must be an object') {
     validated = true;
   }
-  t.ok(validated, 'Plugin must be an object');
+  t.true(validated, 'Plugin must be an object');
 });
 
 plugin(test, inputPluginSingle);
