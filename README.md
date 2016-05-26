@@ -147,3 +147,22 @@ import plugin from '../'; // Input Plugin's index.js
 
 types.pluginTests(test, plugin);
 ```
+
+### Forms
+
+```javascript
+cont contentTypes = require('punchcard-content-types');
+
+contentTypes.only('my-awesome-content-type').then(type => {
+  return contentTypes.form(type);
+}).then(form => {
+  // HTML Rendered Form
+});
+```
+
+```javascript
+cont contentTypes = require('punchcard-content-types');
+
+contentTypes.form.validation(parsedForm);
+```
+
