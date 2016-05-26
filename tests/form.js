@@ -4,6 +4,12 @@ import form from '../lib/form';
 import util from 'util';
 import fs from 'fs';
 
+test('All Form Goodies', t => {
+  t.is(typeof form, 'function', 'Form exports a function');
+
+  t.is(typeof form.validate, 'function', 'Submodule `validate` exists and is a function');
+});
+
 test('Form Generation', t => {
   return types.only('foo').then(result => {
     return form(result);
