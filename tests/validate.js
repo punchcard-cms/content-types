@@ -149,7 +149,7 @@ test('Join Values - Pass without Errors', t => {
 });
 
 // Skipping until we can figure out why `t.throws` doesn't actually catch the throw
-test.skip('Join Values - Throws Error', t => {
+test('Join Values - Throws Error', t => {
   const input = [
     {
       plugin: 'something-new',
@@ -176,9 +176,14 @@ test.skip('Join Values - Throws Error', t => {
     }
   ];
 
-  t.throws(function() {
+  try {
     validation.join(input);
-  }, 'Validation for \'something-new--text\' requires a validation key!');
+
+    t.fail();
+  }
+  catch(e) {
+    t.is(e.message, 'Validation for \'something-new--text\' requires a validation key!');
+  }
 });
 
 test('Validate - Pass', t => {
