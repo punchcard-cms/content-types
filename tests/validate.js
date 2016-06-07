@@ -219,3 +219,34 @@ test('Validate - Fail', t => {
     t.deepEqual(result, expected, 'Returns an object of inputs that have failed');
   });
 });
+
+test('Required - Pass', t => {
+  return types.only('baz').then(ct => {
+    const input = {
+      'plugin-required--text': 'Baz plugin',
+      'input-required--text': 'Baz input',
+    };
+
+    const result = validation(input, ct);
+
+    t.true(result, 'All validation passes');
+  });
+});
+
+test('Required - Fail', t => {
+  return types.only('baz').then(ct => {
+    const input = {
+      'plugin-required--text': '',
+      'input-required--text': '',
+    };
+
+    const expected = {
+      'plugin-required--text': 'Field cannot be left blank!',
+      'input-required--text': 'Field cannot be left blank!'
+    };
+
+    const result = validation(input, ct);
+
+    t.deepEqual(result, expected, 'Returns an object of inputs that have failed');
+  });
+});

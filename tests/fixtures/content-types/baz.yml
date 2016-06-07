@@ -1,0 +1,22 @@
+name: Content Type Baz
+description: Bar Baz Foo
+id: baz
+attributes:
+  - type: text
+    name: Plugin required
+    id: plugin-required
+    description: I am a plugin that is required
+    required: true
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: text
+    name: Input required
+    id: input-required
+    description: I am an input that is required
+    inputs:
+      text:
+        required: 'save'
+        settings:
+          empty: false
