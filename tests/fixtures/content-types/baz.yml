@@ -3,20 +3,38 @@ description: Bar Baz Foo
 id: baz
 attributes:
   - type: text
-    name: Plugin required
-    id: plugin-required
-    description: I am a plugin that is required
+    name: Plugin required save
+    id: plugin-required-save
+    description: I am a plugin that is required to save
     required: true
     inputs:
       text:
         settings:
           empty: false
   - type: text
-    name: Input required
-    id: input-required
-    description: I am an input that is required
+    name: Input required save
+    id: input-required-save
+    description: I am an input that is required to save
     inputs:
       text:
         required: 'save'
+        settings:
+          empty: false
+  - type: text
+    name: Plugin required publish
+    id: plugin-required-publish
+    description: I am a plugin that is required to publish
+    required: 1
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: text
+    name: Input required publish
+    id: input-required-publish
+    description: I am an input that is required to publish
+    inputs:
+      text:
+        required: 'publish'
         settings:
           empty: false

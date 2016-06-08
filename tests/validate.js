@@ -223,8 +223,8 @@ test('Validate - Fail', t => {
 test('Required - Pass', t => {
   return types.only('baz').then(ct => {
     const input = {
-      'plugin-required--text': 'Baz plugin',
-      'input-required--text': 'Baz input',
+      'plugin-required-save--text': 'Baz plugin',
+      'input-required-save--text': 'Baz input',
     };
 
     const result = validation(input, ct);
@@ -236,13 +236,13 @@ test('Required - Pass', t => {
 test('Required - Fail', t => {
   return types.only('baz').then(ct => {
     const input = {
-      'plugin-required--text': '',
-      'input-required--text': '',
+      'plugin-required-save--text': '',
+      'input-required-save--text': '',
     };
 
     const expected = {
-      'plugin-required--text': 'Field cannot be left blank!',
-      'input-required--text': 'Field cannot be left blank!'
+      'plugin-required-save--text': 'Field cannot be left blank!',
+      'input-required-save--text': 'Field cannot be left blank!'
     };
 
     const result = validation(input, ct);
