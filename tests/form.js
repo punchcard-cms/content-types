@@ -57,7 +57,7 @@ test('Form Generation, Again Again Again', t => {
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
-    t.true(includes(rendered.html, 'class="required required--save">Input required save', 'label gets save required classes'));
+    t.true(includes(rendered.html, 'class="required--save">Input required save', 'label gets save required classes'));
     t.true(includes(rendered.html, 'name="input-required-save--text" aria-required="true" required', 'input gets required--save'));
   });
 });
@@ -67,7 +67,7 @@ test('Form Generation, required knows publish vs save', t => {
     return form(result);
   }).then(rendered => {
 
-    t.true(includes(rendered.html, '<div id="plugin-required-save" class="form--field required required--save">', 'determines save for plugin'));
-    t.true(includes(rendered.html, '<div id="plugin-required-publish" class="form--field required required--publish">', 'determines publish for plugin'));
+    t.true(includes(rendered.html, '<div id="plugin-required-save" class="form--field required--save">', 'determines save for plugin'));
+    t.true(includes(rendered.html, '<div id="plugin-required-publish" class="form--field required--publish">', 'determines publish for plugin'));
   });
 });
