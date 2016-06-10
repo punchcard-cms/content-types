@@ -47,7 +47,7 @@ test('Form Generation, Again Again', t => {
   });
 });
 
-test('Form Generation, Again Again Again', t => {
+test('Form Generation, with required attributes and inputs', t => {
   return types.only('baz').then(result => {
     return form(result);
   }).then(rendered => {
