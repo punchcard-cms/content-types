@@ -6,7 +6,7 @@ attributes:
     name: Plugin required save
     id: plugin-required-save
     description: I am a plugin that is required to save
-    required: true
+    required: 2
     inputs:
       text:
         settings:
@@ -36,6 +36,24 @@ attributes:
     inputs:
       text:
         required: 'publish'
+        settings:
+          empty: false
+  - type: text
+    name: Plugin required bad level
+    id: plugin-required-bad-level
+    description: I am a plugin with an incorrect required level
+    required: 3
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: text
+    name: Input required bad level
+    id: input-required-bad-level
+    description: I am an input with an incorrect required level
+    inputs:
+      text:
+        required: 'smublish'
         settings:
           empty: false
   - type: quote
