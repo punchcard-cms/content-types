@@ -66,7 +66,6 @@ test('Form Generation, required knows publish vs save', t => {
   return types.only('baz').then(result => {
     return form(result);
   }).then(rendered => {
-
     t.true(includes(rendered.html, '<div id="plugin-required-save" class="form--field required--save">', 'determines save for plugin'));
     t.true(includes(rendered.html, '<div id="plugin-required-publish" class="form--field required--publish">', 'determines publish for plugin'));
   });

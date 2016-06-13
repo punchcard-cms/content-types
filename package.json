@@ -46,6 +46,7 @@
     "eslint-config-punchcard": "^1.0.0",
     "input-plugin-datetime": "^0.0.1",
     "input-plugin-email": "^0.1.0",
+    "input-plugin-quote": "0.0.1",
     "input-plugin-text": "^0.0.5",
     "input-plugin-textarea": "^0.0.1",
     "nyc": "^6.0.0",

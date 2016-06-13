@@ -38,3 +38,17 @@ attributes:
         required: 'publish'
         settings:
           empty: false
+  - type: quote
+    name: MULTI Plugin required save
+    id: multi-plugin-required-save
+    description: I am a multi-plugin that is required to save
+    required: true
+  - type: quote
+    name: MULTI Input required publish
+    id: multi-input-required-publish
+    description: I am a multi-input that is required to publish
+    inputs:
+      author:
+        required: 'publish'
+        settings:
+          empty: false
