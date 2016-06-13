@@ -1,3 +1,5 @@
+const validation = require('./lib/validation.js');
+
 module.exports = {
   name: 'Radio Selector',
   description: 'Select a radio option',
