@@ -1,6 +1,6 @@
 {
   "name": "punchcard-content-types",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "",
   "main": "index.js",
   "keywords": [
@@ -36,7 +36,7 @@
     "node-dir": "^0.1.11",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.4.0",
-    "plugabilly": "0.0.0",
+    "plugabilly": "^0.0.1",
     "uuid": "^2.0.2"
   },
   "devDependencies": {
@@ -44,12 +44,15 @@
     "coveralls": "^2.11.9",
     "eslint": "^2",
     "eslint-config-punchcard": "^1.0.0",
+    "ghooks": "^1.2.4",
     "input-plugin-datetime": "^0.0.1",
     "input-plugin-email": "^0.1.0",
+    "input-plugin-quote": "0.0.1",
     "input-plugin-text": "^0.0.5",
     "input-plugin-textarea": "^0.0.1",
     "nyc": "^6.0.0",
     "open-exchange-rates": "^0.3.0",
+    "punchcard-commit-msg": "^1.0.0",
     "raw-loader": "^0.5.1",
     "tap-diff": "^0.1.1"
   },
@@ -69,5 +72,10 @@
     ],
     "failFast": true,
     "tap": true
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "punchcard-commit-msg"
+    }
   }
 }

@@ -1,0 +1,72 @@
+name: Content Type Baz
+description: Bar Baz Foo
+id: baz
+attributes:
+  - type: text
+    name: Plugin required save
+    id: plugin-required-save
+    description: I am a plugin that is required to save
+    required: 2
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: text
+    name: Input required save
+    id: input-required-save
+    description: I am an input that is required to save
+    inputs:
+      text:
+        required: 'save'
+        settings:
+          empty: false
+  - type: text
+    name: Plugin required publish
+    id: plugin-required-publish
+    description: I am a plugin that is required to publish
+    required: 1
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: text
+    name: Input required publish
+    id: input-required-publish
+    description: I am an input that is required to publish
+    inputs:
+      text:
+        required: 'publish'
+        settings:
+          empty: false
+  - type: text
+    name: Plugin required bad level
+    id: plugin-required-bad-level
+    description: I am a plugin with an incorrect required level
+    required: 3
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: text
+    name: Input required bad level
+    id: input-required-bad-level
+    description: I am an input with an incorrect required level
+    inputs:
+      text:
+        required: 'smublish'
+        settings:
+          empty: false
+  - type: quote
+    name: MULTI Plugin required save
+    id: multi-plugin-required-save
+    description: I am a multi-plugin that is required to save
+    required: true
+  - type: quote
+    name: MULTI Input required publish
+    id: multi-input-required-publish
+    description: I am a multi-input that is required to publish
+    inputs:
+      author:
+        required: 'publish'
+        settings:
+          empty: false
