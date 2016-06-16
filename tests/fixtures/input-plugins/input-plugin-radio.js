@@ -33,5 +33,5 @@ module.exports = {
       },
     },
   },
-  html: `<label for="{{radioSelector.id}}">{{radioSelector.label}}</label>{% for option in radioSelector.options %}<label><input type="{{radioSelector.type}}" name={{radioSelector.name}} id="{{radioSelector.id}}" value="{{radioSelector.value}}" {% if option.value == radioSelector.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}`,
+  html: `{% for option in radioSelector.options %}<label for="{{radioSelector.id}}--{{option.index}}"><input type="{{radioSelector.type}}" name="{{radioSelector.name}}" id="{{radioSelector.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == radioSelector.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}`,
 };

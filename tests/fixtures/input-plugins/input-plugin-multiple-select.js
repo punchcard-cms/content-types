@@ -1,27 +1,75 @@
 const validation = require('./lib/validation.js');
 
 module.exports = {
-  name: 'Multiple Kitten Name Selector',
-  description: 'Select a few kitten names',
+  name: 'Kitten Name Selector',
+  description: 'Select a kitten name',
   validation: {
-    kittenNameMultipleSelectorValidation: validation,
+    kittenNameSelectorValidation: validation,
+    puppyNameSelectorValidation: validation,
   },
   inputs: {
     kittenNameSelector: {
       validation: {
-        function: 'kittenNameMultipleSelectorValidation',
+        function: 'kittenNameSelectorValidation',
         on: 'blur',
       },
-      label: 'Select a few kitten names',
+      label: 'Choose a kitten name',
+      options: [
+        { label: 'Michaelangelo',
+          value: 'mike',
+        },
+        { label: 'Leonardo',
+          value: 'leo',
+        },
+        { label: 'Raphael',
+          value: 'ralph',
+        },
+        { label: 'Donatello',
+          value: 'don',
+        },
+        { label: 'Muffins',
+          value: 'muffy',
+        },
+        { label: 'Jeff',
+          value: 'jeff',
+        },
+      ],
       type: 'select',
       settings: {
         empty: false,
-        multiple: true,
-        names: ['Michaelangelo', 'Leonardo', 'Raphael', 'Donatello', 'Muffins', 'Jeff']
+      },
+    },
+    puppyNameSelector: {
+      validation: {
+        function: 'puppyNameSelectorValidation',
+        on: 'blur',
+      },
+      label: 'Choose a puppy name',
+      options: [
+        { label: 'Tinky Winky',
+          value: 'tink',
+        },
+        { label: 'Dipsy',
+          value: 'dip',
+        },
+        { label: 'Laa-Laa',
+          value: 'la',
+        },
+        { label: 'Po',
+          value: 'po',
+        },
+        { label: 'Brownie',
+          value: 'bro',
+        },
+        { label: 'Kevin',
+          value: 'kev',
+        },
+      ],
+      type: 'select',
+      settings: {
+        empty: false,
       },
     },
   },
-  html: `<label for="{{kittenNameSelector.id}}">{{kittenNameSelector.label}}<select id="{{kittenNameSelector.id}}" name="{{kittenNameSelector.name}}" value="{{kittenNameSelector.value}}" {% if settings.multiple %}multiple="multiple"{% endif %}>
-    {% for name in kittenNameSelector.settings.name %}<option value="{{name}}" {% if name == kittenNameSelector.value %}selected{% endif %}>{{name}}</option>{% endfor %}
-    </select></label>`,
+  html: '<label for="{{kittenNameSelector.id}}">{{kittenNameSelector.label}}</label><select id="{{kittenNameSelector.id}}" name="{{kittenNameSelector.name}}">{% for option in select.options %}<option value="{{option.value}}" {% if option.value == select.value %}selected{% endif %}>{{option.label}}</option>{% endfor %}</select></label><label for="{{puppyNameSelector.id}}">{{puppyNameSelector.label}}</label><select id="{{puppyNameSelector.id}}" name="{{puppyNameSelector.name}}">{% for option in select.options %}<option value="{{option.value}}" {% if option.value == select.value %}selected{% endif %}>{{option.label}}</option>{% endfor %}</select></label>',
 };
