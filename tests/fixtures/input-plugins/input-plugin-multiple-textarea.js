@@ -5,7 +5,7 @@ module.exports = {
   description: 'Add blocks of text that are very long',
   validation: {
     codeSnippetValidation: validation,
-    snarkyRantValidation: validation,
+    haikuValidation: validation,
   },
   inputs: {
     codeSnippet: {
@@ -19,17 +19,17 @@ module.exports = {
         empty: false,
       },
     },
-    snarkyRant: {
+    haiku: {
       validation: {
-        function: 'snarkyRantValidation',
+        function: 'haikuValidation',
         on: 'blur',
       },
-      label: 'Snarky Rant',
+      label: 'Haiku',
       type: 'textarea',
       settings: {
         empty: false,
       },
     },
   },
-  html: '<label for="{{codeSnippet.id}}">{{codeSnippet.label}}<textarea type="{{codeSnippet.type}}" id="{{codeSnippet.id}}" name="{{codeSnippet.name}}">{{codeSnippet.value}}</textarea></label><label for="{{snarkyRant.id}}">{{snarkyRant.label}}<textarea type="{{snarkyRant.type}}" id="{{snarkyRant.id}}" name="{{snarkyRant.name}}">{{snarkyRant.value}}</textarea></label>',
+  html: '<label for="{{codeSnippet.id}}">{{codeSnippet.label}}<textarea type="{{codeSnippet.type}}" id="{{codeSnippet.id}}" name="{{codeSnippet.name}}">{{codeSnippet.value}}</textarea></label><label for="{{haiku.id}}">{{haiku.label}}<textarea type="{{haiku.type}}" id="{{haiku.id}}" name="{{haiku.name}}">{{haiku.value}}</textarea></label>',
 };
