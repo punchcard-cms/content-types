@@ -119,3 +119,11 @@ test('Form Generation, with errors', t => {
     t.true(includes(rendered.html, 'name="email-field--email" aria-invalid="true"', 'error adds aria-invalid'));
   });
 });
+
+test('Form Generation, with ux scripts', t => {
+  return types.only('baz').then(result => {
+    return form(result);
+  }).then(rendered => {
+    t.true(includes(rendered.validation, 'function selectsRelatedScript(', 'includes ux scripts'));
+  });
+});

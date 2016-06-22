@@ -198,6 +198,20 @@ test('merged with correct param', t => {
           },
         },
       },
+      {
+        type: 'selects-related',
+        id: 'related-selects',
+        name: 'Related Select Fields',
+        description: 'Please choose wisely',
+        inputs: {
+          select1: {
+            label: 'I am the first',
+          },
+          select2: {
+            label: 'I am the second',
+          },
+        },
+      },
     ],
   };
 
@@ -205,25 +219,24 @@ test('merged with correct param', t => {
     .then(result => {
       const merged = result[0];
 
-      // console.log(util.inspect(result, false, null));
-
       t.is(result.length, 1, 'There is one result');
 
       t.is(merged.name, 'FooRific', 'Content type name does not change');
       t.is(merged.description, 'A very foo content model.', 'Content type description does not change');
       t.is(merged.id, 'foo-rific', 'Content type ID does not change');
       t.true(merged.hasOwnProperty('attributes'), 'Content type has attributes');
-      t.is(merged.attributes.length, 2, 'Content type has two attributes');
+      t.is(merged.attributes.length, 3, 'Content type has three attributes');
 
       merged.attributes.forEach((attr, i) => {
         let base = testCT.attributes[i];
-
+console.log(JSON.stringify(attr, null, 2));
         t.is(attr.name, base.name, 'Attribute name does not change');
         t.is(attr.description, base.description, 'Attribute description does not change');
         t.is(attr.id, base.id, 'Attribute ID does not change');
         t.is(attr.type, base.type, 'Attribute type does not change');
 
         t.true(attr.hasOwnProperty('validation'), 'Attribute has validation');
+        t.true(attr.hasOwnProperty('script'), 'Attribute has scripts');
         t.true(attr.hasOwnProperty('html'), 'Attribute has HTML');
         t.true(attr.hasOwnProperty('inputs'), 'Attribute has inputs');
 
