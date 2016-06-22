@@ -2,6 +2,7 @@
   "name": "punchcard-content-types",
   "description": "",
   "main": "index.js",
+  "version": "0.0.0",
   "keywords": [
     "punchcard-cms",
     "content",
