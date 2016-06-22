@@ -33,5 +33,5 @@ module.exports = {
       },
     },
   },
-  html: `{% for option in checkboxSelector.options %}<label for="{{checkboxSelector.id}}--{{option.index}}"><input type="{{checkboxSelector.type}}" name="{{checkboxSelector.name}}" id="{{checkboxSelector.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == checkboxSelector.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}`,
+  html: `<fieldset id="{{checkboxSelector.id}}"><legend>{{checkboxSelector.name}}</legend>{% for option in checkboxSelector.options %}<label for="{{checkboxSelector.id}}--{{option.index}}"><input type="{{checkboxSelector.type}}" name="{{checkboxSelector.name}}" id="{{checkboxSelector.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == checkboxSelector.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}</fieldset>`,
 };
