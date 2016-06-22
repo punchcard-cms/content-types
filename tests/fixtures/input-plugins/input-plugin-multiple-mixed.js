@@ -103,8 +103,14 @@ module.exports = {
       },
     },
   },
-  html: `{% for option in checkboxSelector.options %}<label for="{{checkboxSelector.id}}--{{option.index}}"><input type="{{checkboxSelector.type}}" name="{{checkboxSelector.name}}" id="{{checkboxSelector.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == checkboxSelector.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}{% for option in checkboxSelecticon.options %}<label for="{{checkboxSelecticon.id}}--{{option.index}}"><input type="{{checkboxSelecticon.type}}" name="{{checkboxSelecticon.name}}" id="{{checkboxSelecticon.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == checkboxSelecticon.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}
+  html: `{% if checkboxSelecticon.options.length > 1 %}<fieldset id="{{checkboxSelecticon.id}}"><legend>{{checkboxSelecticon.label}}</legend>{% endif %}
+    {% for option in checkboxSelecticon.options %}<label for="{{checkboxSelecticon.id}}--{{option.index}}">
+      <input type="{{checkboxSelecticon.type}}" name="{{checkboxSelecticon.name}}" id="{{checkboxSelecticon.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == checkboxSelecticon.value %}checked{% endif %}>{{option.label}}</label>
+    {% endfor %}
+    {% if checkboxSelecticon.options.length > 1 %}</fieldset>{% endif %}
+    {% if radioBots.options.length > 1 %}<radiogroup>{% endif %}
     {% for option in radioBots.options %}<label for="{{radioBots.id}}--{{option.index}}"><input type="{{radioBots.type}}" name="{{radioBots.name}}" id="{{radioBots.id}}--{{option.index}}" value="{{option.value}}" {% if option.value == radioBots.value %}checked{% endif %}>{{option.label}}</label>{% endfor %}
+    {% if radioBots.options.length > 1 %}</radiogroup>{% endif %}
     <label for="{{codeSnippet.id}}">{{codeSnippet.label}}<textarea type="{{codeSnippet.type}}" id="{{codeSnippet.id}}" name="{{codeSnippet.name}}">{{codeSnippet.value}}</textarea></label>
     <label for="{{kittenNameSelector.id}}">{{kittenNameSelector.label}}</label><select id="{{kittenNameSelector.id}}" name="{{kittenNameSelector.name}}">{% for option in select.options %}<option value="{{option.value}}" {% if option.value == select.value %}selected{% endif %}>{{option.label}}</option>{% endfor %}</select></label>
   `,
