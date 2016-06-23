@@ -148,21 +148,53 @@ import plugin from '../'; // Input Plugin's index.js
 types.pluginTests(test, plugin);
 ```
 
-### Forms
+### Create your forms
+
+#### Usage
+
+##### In your node application:
 
 ```javascript
-cont contentTypes = require('punchcard-content-types');
+cont content = require('punchcard-content-types');
 
-contentTypes.only('my-awesome-content-type').then(type => {
-  return contentTypes.form(type);
+content.only('my-awesome-content-type').then(type => {
+  return content.form(type);
 }).then(form => {
-  // HTML Rendered Form
+  // use form object within your html to create a content type form (see below)
 });
 ```
 
-```javascript
-cont contentTypes = require('punchcard-content-types');
+##### In your HTML
 
-contentTypes.form.validation(parsedForm);
+```html
+<form action="{{action}}" method="post" enctype="multipart/form-data" novalidate>
+
+  {{form.html | safe}}
+
+  <fieldset id="sunrise-sunset">
+    <legend>Select Sunrise and Sunset</legend>
+    <label for="sunrise-date"><input type="date" name="sunrise-date" id="sunrise-date" value="{{data['sunrise-date'].value}}"></label>
+    <label for="sunrise-time"><input type="time" name="sunrise-time" id="sunrise-time" value="{{data['sunrise-time'].value}}"></label>
+    <label for="sunset-date"><input type="date" name="sunset-date" id="sunset-date" value="{{data['sunset-date'].value}}"></label>
+    <label for="sunset-time"><input type="time" name="sunset-time" id="sunset-time" value="{{data['sunset-time'].value}}"></label>
+  </fieldset>
+
+  <button type="submit">Submit</button>
+  <button type="cancel">Cancel</button>
+</form>
+
+
+<script>
+  {{form.validation | safe}}
+  {{form.scripts | safe}}
+</script>
+<script type="text/javascript" src="/js/sunrise-sunset.js"></script>
 ```
 
+#### Form response object
+
+```javascript
+form.html // string of wrapped form elements; should be placed inside a <form> tag
+form.validation // validation, wrapped for browser via browserify
+form.script // UX scripts, wrapped for browser via browserify
+```
