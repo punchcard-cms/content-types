@@ -217,6 +217,7 @@ test('merged with correct param', t => {
 
   return types([testCT])
     .then(result => {
+      let input;
       const merged = result[0];
 
       t.is(result.length, 1, 'There is one result');
@@ -229,19 +230,18 @@ test('merged with correct param', t => {
 
       merged.attributes.forEach((attr, i) => {
         let base = testCT.attributes[i];
-console.log(JSON.stringify(attr, null, 2));
+
         t.is(attr.name, base.name, 'Attribute name does not change');
         t.is(attr.description, base.description, 'Attribute description does not change');
         t.is(attr.id, base.id, 'Attribute ID does not change');
         t.is(attr.type, base.type, 'Attribute type does not change');
 
         t.true(attr.hasOwnProperty('validation'), 'Attribute has validation');
-        t.true(attr.hasOwnProperty('script'), 'Attribute has scripts');
         t.true(attr.hasOwnProperty('html'), 'Attribute has HTML');
         t.true(attr.hasOwnProperty('inputs'), 'Attribute has inputs');
 
         if (Object.keys(attr.inputs).length === 1) {
-          let input = Object.keys(attr.inputs)[0];
+          input = Object.keys(attr.inputs)[0];
 
           if (base.hasOwnProperty('inputs')) {
             if (base.inputs.hasOwnProperty(input)) {
@@ -251,8 +251,14 @@ console.log(JSON.stringify(attr, null, 2));
             }
           }
           else {
-            t.is(attr.inputs[input].label, base.name, 'Input label is set to name if one input')
+            t.is(attr.inputs[input].label, base.name, 'Input label is set to name if one input');
           }
+        }
+
+        if (attr === merged.attributes[2]) {
+          input = Object.keys(attr.inputs);
+          t.true(attr.inputs[input[0]].hasOwnProperty('script'), 'Attribute has scripts');
+          t.true(attr.inputs[input[1]].hasOwnProperty('script'), 'Attribute has scripts');
         }
 
       });
