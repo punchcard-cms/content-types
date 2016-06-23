@@ -2,6 +2,7 @@
   "name": "punchcard-content-types",
   "description": "",
   "main": "index.js",
+  "version": "0.0.0",
   "keywords": [
     "punchcard-cms",
     "content",
@@ -50,6 +51,7 @@
     "input-plugin-quote": "0.0.1",
     "input-plugin-text": "^0.0.5",
     "input-plugin-textarea": "^0.0.1",
+    "node-dir": "^0.1.12",
     "nyc": "^6.0.0",
     "open-exchange-rates": "^0.3.0",
     "punchcard-commit-msg": "^1.0.0",
