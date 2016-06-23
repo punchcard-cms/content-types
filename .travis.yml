@@ -1,10 +1,28 @@
 language: node_js
 node_js:
 - '5.7'
+
+#########################
+## Setup
+#########################
+sudo: false
 cache:
   directories:
   - node_modules
-after_success: npm run coverage
+
+before_script:
+  - npm prune
+
+after_success:
+  - npm run coverage
+  - npm run semantic-release
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+#########################
+## Notifications
+#########################
 notifications:
   email: false
   slack:
