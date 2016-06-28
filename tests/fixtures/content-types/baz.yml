@@ -70,6 +70,10 @@ attributes:
         required: 'publish'
         settings:
           empty: false
+  - type: selects-related
+    name: Two related select elements
+    id: input-related-selects
+    description: I am a set of selects
   - type: select
     name: example dropdown
     id: example-dropdown

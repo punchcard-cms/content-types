@@ -198,14 +198,27 @@ test('merged with correct param', t => {
           },
         },
       },
+      {
+        type: 'selects-related',
+        id: 'related-selects',
+        name: 'Related Select Fields',
+        description: 'Please choose wisely',
+        inputs: {
+          select1: {
+            label: 'I am the first',
+          },
+          select2: {
+            label: 'I am the second',
+          },
+        },
+      },
     ],
   };
 
   return types([testCT])
     .then(result => {
+      let input;
       const merged = result[0];
-
-      // console.log(util.inspect(result, false, null));
 
       t.is(result.length, 1, 'There is one result');
 
@@ -213,7 +226,7 @@ test('merged with correct param', t => {
       t.is(merged.description, 'A very foo content model.', 'Content type description does not change');
       t.is(merged.id, 'foo-rific', 'Content type ID does not change');
       t.true(merged.hasOwnProperty('attributes'), 'Content type has attributes');
-      t.is(merged.attributes.length, 2, 'Content type has two attributes');
+      t.is(merged.attributes.length, 3, 'Content type has three attributes');
 
       merged.attributes.forEach((attr, i) => {
         let base = testCT.attributes[i];
@@ -228,7 +241,7 @@ test('merged with correct param', t => {
         t.true(attr.hasOwnProperty('inputs'), 'Attribute has inputs');
 
         if (Object.keys(attr.inputs).length === 1) {
-          let input = Object.keys(attr.inputs)[0];
+          input = Object.keys(attr.inputs)[0];
 
           if (base.hasOwnProperty('inputs')) {
             if (base.inputs.hasOwnProperty(input)) {
@@ -238,8 +251,14 @@ test('merged with correct param', t => {
             }
           }
           else {
-            t.is(attr.inputs[input].label, base.name, 'Input label is set to name if one input')
+            t.is(attr.inputs[input].label, base.name, 'Input label is set to name if one input');
           }
+        }
+
+        if (attr === merged.attributes[2]) {
+          input = Object.keys(attr.inputs);
+          t.true(attr.inputs[input[0]].hasOwnProperty('script'), 'Attribute has scripts');
+          t.true(attr.inputs[input[1]].hasOwnProperty('script'), 'Attribute has scripts');
         }
 
       });

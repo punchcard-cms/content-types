@@ -16,9 +16,11 @@ test('Form Generation', t => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
   });
 });
@@ -28,9 +30,11 @@ test('Form Generation, Again', t => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
   });
 });
@@ -40,9 +44,11 @@ test('Form Generation, Again Again', t => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
   });
 });
@@ -52,9 +58,11 @@ test('Form Generation, with required attributes and inputs', t => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
     t.true(includes(rendered.html, 'class="required--save">Input required save', 'label gets save required classes'));
@@ -69,9 +77,11 @@ test('Form Generation, with required, with classes on a label', t => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
     t.true(includes(rendered.html, 'class="I-am-a-test this-must__still_be123-here required--save">Plugin required save', 'label gets save required classes if class after for'));
@@ -110,13 +120,23 @@ test('Form Generation, with errors', t => {
     return form(result, errors);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.validation, 'string', 'Validation is a string');
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
     t.true(includes(rendered.html, errorMsg, 'error adds error message'));
     t.true(includes(rendered.html, 'name="email-field--email" aria-invalid="true"', 'error adds aria-invalid'));
+  });
+});
+
+test('Form Generation, with ux scripts', t => {
+  return types.only('baz').then(result => {
+    return form(result);
+  }).then(rendered => {
+    t.true(includes(rendered.validation, 'function selectsRelatedScript(', 'includes ux scripts'));
   });
 });
 
@@ -132,5 +152,3 @@ test('Form Generation, overrides options in select', t => {
     t.false(includes(rendered.html, '<option value="don" >Donatello</option>', 'determines non-existence of default option 4'));
   });
 });
-
-
