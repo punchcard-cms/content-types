@@ -74,4 +74,16 @@ attributes:
     name: Two related select elements
     id: input-related-selects
     description: I am a set of selects
-
+  - type: select
+    name: example dropdown
+    id: example-dropdown
+    inputs:
+      select:
+        label: Example Dropdown
+        options:
+          - label: Option 1
+            value: option1
+          - label: Option 2
+            value: option2
+        settings:
+          multiple: false

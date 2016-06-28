@@ -139,3 +139,16 @@ test('Form Generation, with ux scripts', t => {
     t.true(includes(rendered.validation, 'function selectsRelatedScript(', 'includes ux scripts'));
   });
 });
+
+test('Form Generation, overrides options in select', t => {
+  return types.only('baz').then(result => {
+    return form(result);
+  }).then(rendered => {
+    t.true(includes(rendered.html, '<option value="option1" >Option 1</option>', 'determines existence of option1'));
+    t.true(includes(rendered.html, '<option value="option2" >Option 2</option>', 'determines existence of option2'));
+    t.false(includes(rendered.html, '<option value="mike" >Michaelangelo</option>', 'determines non-existence of default option 1'));
+    t.false(includes(rendered.html, '<option value="leo" >Leonardo</option>', 'determines non-existence of default option 2'));
+    t.false(includes(rendered.html, '<option value="ralph" >Raphael</option>', 'determines non-existence of default option 3'));
+    t.false(includes(rendered.html, '<option value="don" >Donatello</option>', 'determines non-existence of default option 4'));
+  });
+});

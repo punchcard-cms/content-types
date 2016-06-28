@@ -196,7 +196,6 @@ test('Validate - Pass', t => {
     };
 
     const result = validation(input, ct);
-
     t.true(result, 'All validation passes');
   });
 });
