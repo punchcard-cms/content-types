@@ -2,6 +2,7 @@
   "name": "punchcard-content-types",
   "description": "",
   "main": "index.js",
+  "version": "0.0.0",
   "keywords": [
     "punchcard-cms",
     "content",
@@ -34,7 +35,6 @@
     "js-yaml": "^3.5.3",
     "lodash": "^4.13.1",
     "node-dir": "^0.1.11",
-    "node-sass": "^3.4.2",
     "nunjucks": "^2.4.0",
     "plugabilly": "^0.0.1",
     "uuid": "^2.0.2"
@@ -42,7 +42,7 @@
   "devDependencies": {
     "ava": "^0.15.1",
     "coveralls": "^2.11.9",
-    "eslint": "^2",
+    "eslint": "^2.13.1",
     "eslint-config-punchcard": "^1.0.0",
     "ghooks": "^1.2.4",
     "input-plugin-datetime": "^0.0.1",
@@ -51,10 +51,11 @@
     "input-plugin-quote": "0.0.1",
     "input-plugin-text": "^0.0.5",
     "input-plugin-textarea": "^0.0.1",
+    "node-dir": "^0.1.12",
     "nyc": "^6.0.0",
     "open-exchange-rates": "^0.3.0",
     "punchcard-commit-msg": "^1.0.0",
-    "punchcard-semantic-release": "^2.0.0",
+    "punchcard-semantic-release": "^2.0.1",
     "raw-loader": "^0.5.1",
     "semantic-release": "^4.3.5",
     "tap-diff": "^0.1.1"
