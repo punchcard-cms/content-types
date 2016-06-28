@@ -70,3 +70,16 @@ attributes:
         required: 'publish'
         settings:
           empty: false
+  - type: select
+    name: example dropdown
+    id: example-dropdown
+    inputs:
+      select:
+        label: Example Dropdown
+        options:
+          - label: Option 1
+            value: option1
+          - label: Option 2
+            value: option2
+        settings:
+          multiple: false
