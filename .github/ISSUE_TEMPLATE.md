@@ -8,8 +8,8 @@ Feature: {{feature}}
 
   Scenario: {{scenario}}
     Given {{thing}}
-    When {{action}}
-    Then {{result}}
+     When {{action}}
+     Then {{result}}
 ```
 
 ---
