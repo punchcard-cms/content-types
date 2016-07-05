@@ -8,7 +8,7 @@ import includes from 'lodash/includes';
 test('All Form Goodies', t => {
   t.is(typeof form, 'function', 'Form exports a function');
 
-  t.is(typeof form.scripts, 'function', 'Submodule `scripts` exists and is a function');
+  t.is(typeof form.validate, 'function', 'Submodule `validate` exists and is a function');
 });
 
 test('Form Generation', t => {
