@@ -8,18 +8,16 @@ import includes from 'lodash/includes';
 test('All Form Goodies', t => {
   t.is(typeof form, 'function', 'Form exports a function');
 
-  t.is(typeof form.validate, 'function', 'Submodule `validate` exists and is a function');
+  t.is(typeof form.scripts, 'function', 'Submodule `scripts` exists and is a function');
 });
 
 test('Form Generation', t => {
   return types.only('foo').then(result => {
     return form(result);
   }).then(rendered => {
-    t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
-    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
-    t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
   });
@@ -29,11 +27,9 @@ test('Form Generation, Again', t => {
   return types.only('foo').then(result => {
     return form(result);
   }).then(rendered => {
-    t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
-    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
-    t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
   });
@@ -43,11 +39,9 @@ test('Form Generation, Again Again', t => {
   return types.only('bar').then(result => {
     return form(result);
   }).then(rendered => {
-    t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
-    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
-    t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
   });
@@ -57,11 +51,9 @@ test('Form Generation, with required attributes and inputs', t => {
   return types.only('baz').then(result => {
     return form(result);
   }).then(rendered => {
-    t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
-    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
-    t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
@@ -76,11 +68,9 @@ test('Form Generation, with required, with classes on a label', t => {
     result.attributes[2].html = '<label class="I-am-a-test this-must__still_be123-here" for="{{text.id}}">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
     return form(result);
   }).then(rendered => {
-    t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
-    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
-    t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
@@ -119,11 +109,9 @@ test('Form Generation, with errors', t => {
 
     return form(result, errors);
   }).then(rendered => {
-    t.true(rendered.hasOwnProperty('validation'), 'Validation JS generated');
-    t.true(rendered.hasOwnProperty('scripts'), 'UX Scripts JS generated');
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
-    t.is(typeof rendered.validation, 'string', 'Validation is a string');
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
@@ -136,7 +124,7 @@ test('Form Generation, with ux scripts', t => {
   return types.only('baz').then(result => {
     return form(result);
   }).then(rendered => {
-    t.true(includes(rendered.validation, 'function selectsRelatedScript(', 'includes ux scripts'));
+    t.true(includes(rendered.scripts, 'function selectsRelatedScript(', 'includes ux scripts'));
   });
 });
 

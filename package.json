@@ -68,7 +68,8 @@
   "nyc": {
     "exclude": [
       "tests/**/*",
-      "config/**/*"
+      "config/**/*",
+      "lib/form/js/**/*"
     ]
   },
   "ava": {
