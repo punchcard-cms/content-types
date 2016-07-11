@@ -16,3 +16,8 @@ attributes:
     repeatable:
       min: 1
       max: 3
+  - type: quote
+    id: my-quote
+    repeatable: true
+    name: My Quote
+    description: I am the Bar Content Type Config quote description
