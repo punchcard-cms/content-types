@@ -12,7 +12,3 @@ test('Form Export', t => {
   t.is(typeof types.form, 'function', 'Submodule `form` exists and is a function');
   t.is(typeof types.form.validate, 'function', 'Submodule `form.validate` exists and is a function');
 });
-
-test('Plugin Test Export', t => {
-  t.is(typeof types.pluginTests, 'function', 'Submodule `pluginTests` exists and is a function');
-});
