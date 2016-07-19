@@ -21,3 +21,6 @@ attributes:
     repeatable: true
     name: My Quote
     description: I am the Bar Content Type Config quote description
+  - type: checkbox
+    id: my-checkbox
+    name: checkbox
