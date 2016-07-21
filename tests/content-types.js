@@ -1,5 +1,4 @@
 import test from 'ava';
-import config from 'config';
 import types from '../lib/content-types';
 import util from 'util';
 import fs from 'fs';
@@ -35,7 +34,6 @@ test('Content Types', t => {
   });
 });
 
-
 test('merged', t => {
   return types()
     .then(result => {
@@ -64,7 +62,7 @@ test('reject when something other than array is passed in', t => {
     ],
   };
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Content types must be an array', 'Non-Array Rejected');
@@ -84,7 +82,7 @@ test('reject when plugin not found', t => {
     ],
   }];
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'input-plugin-text\' not found', 'Missing Plugin');
@@ -102,7 +100,7 @@ test('reject when name not found - no id', t => {
     ],
   }];
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'text\' in content type \'Foo\' needs a name', 'Missing Name');
@@ -121,7 +119,7 @@ test('reject when name not found - id', t => {
     ],
   }];
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'My Text\' in content type \'Foo\' needs a name', 'Missing Name');
@@ -140,7 +138,7 @@ test('reject when id not found', t => {
     ],
   }];
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'My Text\' in content type \'Foo\' needs an ID', 'Missing ID');
@@ -160,7 +158,7 @@ test('reject when id is not kebab case', t => {
     ],
   }];
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input ID \'myText\' needs to be written in kebab case (e.g. \'my-text\')', 'Not Kebab ID');
@@ -185,7 +183,7 @@ test('reject when id is duplicated', t => {
     ],
   }];
 
-  return types(testCT).then(result => {
+  return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input ID \'my-text\' in content type \'Foo\' cannot be duplicated (in \'My Email\')', 'No Duplicate IDs');
@@ -247,7 +245,7 @@ test('merged with correct param', t => {
       t.is(merged.attributes.length, 3, 'Content type has three attributes');
 
       merged.attributes.forEach((attr, i) => {
-        let base = testCT.attributes[i];
+        const base = testCT.attributes[i];
 
         t.is(attr.name, base.name, 'Attribute name does not change');
         t.is(attr.description, base.description, 'Attribute description does not change');
@@ -276,9 +274,7 @@ test('merged with correct param', t => {
         if (attr === merged.attributes[2]) {
           input = Object.keys(attr.inputs);
           t.true(attr.inputs[input[0]].hasOwnProperty('script'), 'Attribute has scripts');
-          t.true(attr.inputs[input[1]].hasOwnProperty('script'), 'Attribute has scripts');
         }
-
       });
     });
-})
+});
