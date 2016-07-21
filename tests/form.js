@@ -1,8 +1,6 @@
 import test from 'ava';
 import types from '../lib/content-types';
 import form from '../lib/form';
-import util from 'util';
-import fs from 'fs';
 import includes from 'lodash/includes';
 
 test('All Form Goodies', t => {
@@ -63,9 +61,11 @@ test('Form Generation, with required attributes and inputs', t => {
 });
 
 test('Form Generation, with required, with classes on a label', t => {
-  return types.only('baz').then(result => {
+  return types.only('baz').then(rslt => {
+    const result = rslt;
     result.attributes[0].html = '<label for="{{text.id}}" class="I-am-a-test this-must__still_be123-here">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
     result.attributes[2].html = '<label class="I-am-a-test this-must__still_be123-here" for="{{text.id}}">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
+
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
@@ -80,11 +80,12 @@ test('Form Generation, with required, with classes on a label', t => {
 });
 
 test('Form Generation, with required attributes and inputs that have wrong levels', t => {
-  return types.only('baz').then(result => {
+  return types.only('baz').then(rslt => {
+    const result = rslt;
     result.attributes[5].html = '<label for="{{text.id}}" class="I-am-a-test-of-bad-level">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
+
     return form(result);
   }).then(rendered => {
-
     t.true(includes(rendered.html, 'class="I-am-a-test-of-bad-level">Input required bad level', 'bad level adds zero classes'));
     t.true(includes(rendered.html, 'name="plugin-required-bad-level--text"', 'bad level adds zero attributes to input'));
   });
@@ -101,6 +102,7 @@ test('Form Generation, required knows publish vs save', t => {
 
 test('Form Generation, with errors', t => {
   let errorMsg;
+
   return types.only('foo').then(result => {
     const errors = {
       [result.attributes[1].inputs.email.name]: 'I am a test error',
