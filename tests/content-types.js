@@ -276,7 +276,6 @@ test('merged with correct param', t => {
         if (attr === merged.attributes[2]) {
           input = Object.keys(attr.inputs);
           t.true(attr.inputs[input[0]].hasOwnProperty('script'), 'Attribute has scripts');
-          t.true(attr.inputs[input[1]].hasOwnProperty('script'), 'Attribute has scripts');
         }
 
       });
