@@ -36,7 +36,7 @@ test('Split Values - Pass', t => {
       input: 'email',
       index: '1',
       value: 'test@email.two',
-    }
+    },
   ];
 
   const result = validation.split(input);
@@ -69,7 +69,7 @@ test('Join Values - Pass with Errors', t => {
       input: 'email',
       index: '1',
       validation: 'Invalid Email Address',
-    }
+    },
   ];
 
   const expected = {
@@ -107,7 +107,7 @@ test('Join Values - Pass without Errors', t => {
       input: 'email',
       index: '1',
       validation: true,
-    }
+    },
   ];
 
   const result = validation.join(input);
@@ -140,7 +140,7 @@ test('Join Values - Pass without Errors', t => {
       input: 'email',
       index: '1',
       validation: true,
-    }
+    },
   ];
 
   const result = validation.join(input);
@@ -173,7 +173,7 @@ test('Join Values - Throws Error', t => {
       input: 'email',
       index: '1',
       validation: true,
-    }
+    },
   ];
 
   try {
@@ -181,7 +181,7 @@ test('Join Values - Throws Error', t => {
 
     t.fail();
   }
-  catch(e) {
+  catch (e) {
     t.is(e.message, 'Validation for \'something-new--text\' requires a validation key!');
   }
 });
@@ -210,7 +210,7 @@ test('Validate - Fail', t => {
     };
 
     const expected = {
-      'my-email--email--0': 'Not a valid e-mail address.'
+      'my-email--email--0': 'Not a valid e-mail address.',
     };
 
     const result = validation(input, ct);
@@ -241,7 +241,7 @@ test('Required - Fail', t => {
 
     const expected = {
       'plugin-required-save--text': 'Field cannot be left blank!',
-      'input-required-save--text': 'Field cannot be left blank!'
+      'input-required-save--text': 'Field cannot be left blank!',
     };
 
     const result = validation(input, ct);
