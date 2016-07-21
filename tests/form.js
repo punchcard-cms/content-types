@@ -2,8 +2,7 @@ import test from 'ava';
 import types from '../lib/content-types';
 import form from '../lib/form';
 import includes from 'lodash/includes';
-
-var bar_input = require('./fixtures/objects/bar_expected.js');
+import barInput from './fixtures/objects/bar_expected.js';
 
 test('All Form Goodies', t => {
   t.is(typeof form, 'function', 'Form exports a function');
@@ -146,10 +145,10 @@ test('Form Generation, overrides options in select', t => {
 });
 
 test('Form Generation, with repeatables', t => {
-  let errorMsg;
-  const input = bar_input;
+  const input = barInput;
+
   return form(input).then(rendered => {
-    // fs.writeFileSync('fixtures/output.js', rendered.html);
+  // fs.writeFileSync('fixtures/output.js', rendered.html);
     t.true(includes(rendered.html, '<label for="c4087332-edda-432d-8464-cc9679742e4e--0">Citation:</label>'), 'Indexing for label of first instance');
     t.true(includes(rendered.html, '<input type="text" id="c4087332-edda-432d-8464-cc9679742e4e--0" name="my-quote--quote--0" value="foo" placeholder="Source Material" />'), 'Indexing for label of second instance');
     t.true(includes(rendered.html, '<label for="c4087332-edda-432d-8464-cc9679742e4e--1">Citation:</label>'), 'Indexing for label of second instance');

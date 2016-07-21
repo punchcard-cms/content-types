@@ -1,35 +1,33 @@
 import test from 'ava';
 import types from '../lib/content-types';
-import util from 'util';
-import fs from 'fs';
 import only from '../lib/content-types/only.js';
-var bar_input = require('./fixtures/objects//bar_input.js')
-var bar_expected = require('./fixtures/objects//bar_expected.js');
+import barInput from './fixtures/objects//bar_input.js';
+import barExpected from './fixtures/objects//bar_expected.js';
 
 test('Content Types', t => {
-  return only(bar_input, {
+  return only(barInput, {
     'something-new': {
-      text: {value: 'foo'}
+      text: { value: 'foo' },
     },
     'my-quote': [
       {
-        author: {value: 'bar'},
-        quote: {value: 'foo'},
-        source: {value: 'baz'}
+        author: { value: 'bar' },
+        quote: { value: 'foo' },
+        source: { value: 'baz' },
       },
       {
-        author: {value: 'bar1'},
-        quote: {value: 'foo1'},
-        source: {value: 'baz1'}
+        author: { value: 'bar1' },
+        quote: { value: 'foo1' },
+        source: { value: 'baz1' },
       },
       {
-        author: {value: 'bar2'},
-        quote: {value: 'foo2'},
-        source: {value: 'baz2'}
-      }
-    ]
+        author: { value: 'bar2' },
+        quote: { value: 'foo2' },
+        source: { value: 'baz2' },
+      },
+    ],
   }).then(result => {
-    t.deepEqual(result, bar_expected, 'Only method works!');
+    t.deepEqual(result, barExpected, 'Only method works!');
     t.pass();
   });
 });
