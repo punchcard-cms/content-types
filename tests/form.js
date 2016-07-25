@@ -2,7 +2,7 @@ import test from 'ava';
 import types from '../lib/content-types';
 import form from '../lib/form';
 import includes from 'lodash/includes';
-import barInput from './fixtures/objects/bar_expected.js';
+import barInput from './fixtures/objects/bar-expected.js';
 
 test('All Form Goodies', t => {
   t.is(typeof form, 'function', 'Form exports a function');

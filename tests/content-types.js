@@ -1,8 +1,8 @@
 import test from 'ava';
 import types from '../lib/content-types';
 import only from '../lib/content-types/only.js';
-import barInput from './fixtures/objects//bar_input.js';
-import barExpected from './fixtures/objects//bar_expected.js';
+import barInput from './fixtures/objects//bar-input.js';
+import barExpected from './fixtures/objects//bar-expected.js';
 
 test('Content Types', t => {
   return only(barInput, {
