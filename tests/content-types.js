@@ -15,6 +15,9 @@ test('Content Types', t => {
   });
 });
 
+//////////////////////////////
+// types() promise
+//////////////////////////////
 test('merged', t => {
   return types()
     .then(result => {
@@ -258,4 +261,341 @@ test('merged with correct param', t => {
         }
       });
     });
+});
+
+//////////////////////////////
+// content-type names
+//////////////////////////////
+test('get content types names', t => {
+  const ctypes = [
+    {
+      name: 'Content Type BAR',
+      description: 'Bar Baz Foo',
+      id: 'bar',
+    },
+    {
+      name: 'Content Type Baz',
+      description: 'Bar Baz Foo',
+      id: 'baz',
+    },
+    {
+      name: 'Content Type FOO',
+      description: 'Foo Bar Baz',
+      id: 'foo',
+    },
+  ];
+
+  const names = types.raw.names(ctypes);
+  t.is(names[0], 'Content Type BAR', 'Should have name');
+  t.is(names[1], 'Content Type Baz', 'Should have name');
+  t.is(names[2], 'Content Type FOO', 'Should have name');
+});
+
+//////////////////////////////
+// content-type attributes
+//////////////////////////////
+test('get attributes - bad', t => {
+  const bad = [
+    {
+      name: 'Content Type BAR',
+      description: 'Bar Baz Foo',
+      id: 'bar',
+      attributes: '',
+    },
+    {
+      name: 'Content Type Baz',
+      description: 'Bar Baz Foo',
+      id: 'baz',
+    },
+    {
+      name: 'Content Type FOO',
+      description: 'Foo Bar Baz',
+      id: 'foo',
+      attributes: [],
+    },
+  ];
+  let attrs = types.raw.attributes('bar', bad);
+  t.false(attrs, 'Wrong type attributes should return false');
+
+  attrs = types.raw.attributes('baz', bad);
+  t.false(attrs, 'Missing attributes should return false');
+
+  attrs = types.raw.attributes('foo', bad);
+  t.false(attrs, 'Empty attributes should return false');
+});
+
+test('get attributes of one type', t => {
+  return types()
+    .then(result => {
+      const attrs = types.raw.attributes('bar', result);
+      t.is(result[0].attributes, attrs, 'Should get the attributes object of one type');
+    });
+});
+
+//////////////////////////////
+// check content-type configuration
+//////////////////////////////
+test('configuration check - object', t => {
+  const type = 'foo';
+
+  const result = types.raw.check(type);
+  t.is(result, 'Type must be an object', 'Should be an object');
+});
+
+test('configuration check - name', t => {
+  const type = {};
+
+  let result = types.raw.check(type);
+  t.is(result, 'Content types require a name', 'Should have a name');
+
+  type.name = '';
+  result = types.raw.check(type);
+  t.is(result, 'Content types require a name', 'Should have a name');
+});
+
+test('configuration check - name/string', t => {
+  const type = {
+    name: 123,
+  };
+
+  let result = types.raw.check(type);
+  t.is(result, 'Content type name must be string', 'Name should be a string');
+
+  type.name = [];
+  result = types.raw.check(type);
+  t.is(result, 'Content type name must be string', 'Name should be a string');
+});
+
+test('configuration check - id', t => {
+  const type = {
+    name: 'foo',
+  };
+
+  let result = types.raw.check(type);
+  t.is(result, 'Content types require an id', 'Should have an id');
+
+  type.id = '';
+  result = types.raw.check(type);
+  t.is(result, 'Content types require an id', 'Should have an id');
+});
+
+test('configuration check - id/string', t => {
+  const type = {
+    name: 'foo',
+    id: 123,
+  };
+
+  let result = types.raw.check(type);
+  t.is(result, 'Content type id must be string', 'ID should be a string');
+
+  type.id = [];
+  result = types.raw.check(type);
+  t.is(result, 'Content type id must be string', 'ID should be a string');
+});
+
+test('configuration check - id/kebab', t => {
+  const type = {
+    name: 'foo',
+    id: 'FooFoo',
+  };
+
+  const result = types.raw.check(type);
+  t.is(result, 'FooFoo needs to be written in kebab case (e.g. foofoo)', 'ID should be kebab');
+});
+
+test('Content Type check attributes exists', t => {
+  const type = {
+    name: 'Foo',
+    id: 'foo',
+  };
+  const check = types.raw.check(type);
+  t.is(check, 'A content type must have attributes', 'A Content Type must have attributes');
+});
+
+test('Content Type attributes is an array', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: 'attributes',
+  };
+  const check = types.raw.check(type);
+  t.is(check, 'Content type attributes must be an array', 'Content Type attributes must be an array');
+});
+
+test('Content Type - at least one attribute', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [],
+  };
+  const check = types.raw.check(type);
+  t.is(check, 'Content type must have at least one attribute', 'Content Type should have at least one attribute');
+});
+
+test('Content Type config check attribute requires name', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{}],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute must have a name', 'Content Type attributes require a name');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: '',
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute must have a name', 'Content Type attributes require a name');
+});
+
+test('Content Type config attribute name/string', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: ['foo'],
+    }],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute name must be a string', 'Content Type attributes require a name');
+
+  type.attributes = [{
+    name: [],
+  }, {
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: 'bar',
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute name must be a string', 'Content Type attributes require a name');
+});
+
+test('Content Type config check attribute requires id', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: 'foo',
+      id: '',
+    }, {
+      name: 'bar',
+    }],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute must have an id', 'Content Type attributes require a name');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: 'bar',
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute must have an id', 'Content Type attributes require a name');
+});
+
+test('Content Type config check attribute id is string', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: 'foo',
+      id: [],
+    }, {
+      name: 'bar',
+    }],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute id must be a string', 'Attribute id must be a string');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: 'bar',
+    id: {},
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute id must be a string', 'Attribute id must be a string');
+});
+
+test('Content Type config check attribute requires type', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: 'foo',
+      id: 'foo',
+      type: '',
+    }, {
+      name: 'bar',
+    }],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute must have a type', 'Content Type attributes require a type');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: 'bar',
+    id: 'bar',
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute must have a type', 'Content Type attributes require a type');
+});
+
+test('Content Type config check attribute type is string', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: 'foo',
+      id: 'foo',
+      type: [],
+    }, {
+      name: 'bar',
+      id: 'bar',
+    }],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute type must be a string', 'Attribute type must be a string');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: 'bar',
+    id: 'bar',
+    type: {},
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute type must be a string', 'Attribute type must be a string');
+});
+
+test('configuration check - winner', t => {
+  const type = {
+    name: 'Foo',
+    id: 'foo',
+    attributes: [
+      {
+        type: 'input-plugin-text',
+        id: 'text',
+        name: 'Text',
+      },
+    ],
+  };
+
+  const result = types.raw.check(type);
+  t.true(result, 'Should be happy with a proper content type config');
 });
