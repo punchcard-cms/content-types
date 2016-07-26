@@ -12,7 +12,7 @@
     "pretest": "npm run lint",
     "test": "npm run nyc",
     "lint": "npm run lint:node && npm run lint:browser && npm run lint:tests",
-    "lint:node": "eslint -c ./.eslintrc-node.yml index.js './lib/*.js' './lib/content-types/**/*.js' './lib/form/*.js' ",
+    "lint:node": "eslint -c ./.eslintrc-node.yml index.js './lib/*.js' './lib/content-types/**/*.js' './lib/form/*.js' './tests/fixtures/**/*.js' ",
     "lint:browser": "eslint -c ./.eslintrc-browser.yml './lib/form/js/**/*.js'" ,
     "lint:tests": "eslint -c ./.eslintrc-tests.yml './tests/*.js'",
     "ava": "ava | tap-diff",
