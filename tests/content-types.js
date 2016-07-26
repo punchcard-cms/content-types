@@ -24,12 +24,15 @@ test('merged', t => {
       t.is(result[0].name, 'Content Type BAR', 'Get first content type name');
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
       t.is(result[0].id, 'bar', 'Get first content type id');
+      t.is(result[0].key, 'something-new', 'Get first content type key');
       t.is(result[1].name, 'Content Type Baz', 'Get second content type name');
       t.is(result[1].description, 'Bar Baz Foo', 'Get second content type desc');
       t.is(result[1].id, 'baz', 'Get second content type id');
+      t.is(result[1].key, 'plugin-required-save', 'Get second content type key');
       t.is(result[2].name, 'Content Type FOO', 'Get third content type name');
       t.is(result[2].description, 'Foo Bar Baz', 'Get third content type desc');
       t.is(result[2].id, 'foo', 'Get third content type id');
+      t.is(result[2].key, 'new-text-thing', 'Get third content type key');
     });
 });
 
