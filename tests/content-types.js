@@ -149,6 +149,96 @@ test('reject when id is not kebab case', t => {
   });
 });
 
+test('reject when key is repeatable', t => {
+  const testCT = [{
+    name: 'Foo',
+    id: 'foo',
+    attributes: [
+      {
+        type: 'text',
+        name: 'My Text',
+        id: 'my-text',
+        key: true,
+        repeatable: true,
+      },
+    ],
+  }];
+
+  return types(testCT).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Repeatable attributes can not be the key. Input \'My Text\' in content type \'Foo\' is repeatable and has key: true.', 'Only single key');
+  });
+});
+
+test('reject when more than one key', t => {
+  const testCT = [{
+    name: 'Foo',
+    id: 'foo',
+    attributes: [
+      {
+        type: 'text',
+        name: 'My Text',
+        id: 'my-text',
+        key: true,
+      },
+      {
+        type: 'text',
+        name: 'My Text2',
+        id: 'my-text-2',
+        key: true,
+      },
+    ],
+  }];
+
+  return types(testCT).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Only one attribute can be the key. Input \'My Text2\' in content type \'Foo\' has the second key found.', 'Only single key');
+  });
+});
+
+test('reject when more than one input on key attribute', t => {
+  const testCT = [{
+    name: 'Foo',
+    id: 'foo',
+    attributes: [
+      {
+        type: 'quote',
+        name: 'My Quote',
+        id: 'my-quote',
+        key: true,
+      },
+    ],
+  }];
+
+  return types(testCT).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Only attributes with one input can be the key. Plugin \'input-plugin-quote\' in content type \'Foo\' has more than one input.', 'Only single input');
+  });
+});
+
+test('reject when more than one input on key attribute', t => {
+  const testCT = [{
+    name: 'FooKey',
+    id: 'foo-key',
+    attributes: [
+      {
+        type: 'quote',
+        name: 'My Quote',
+        id: 'my-quote',
+      },
+    ],
+  }];
+
+  return types(testCT).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Content type \'FooKey\', does not have an attribute with one input that can be used as a key.', 'No attribute can be a key');
+  });
+});
+
 test('reject when id is duplicated', t => {
   const testCT = [{
     name: 'Foo',
@@ -225,6 +315,7 @@ test('merged with correct param', t => {
       t.is(merged.name, 'FooRific', 'Content type name does not change');
       t.is(merged.description, 'A very foo content model.', 'Content type description does not change');
       t.is(merged.id, 'foo-rific', 'Content type ID does not change');
+      t.is(merged.key, 'username', 'Content type key is automatically selected');
       t.true(merged.hasOwnProperty('attributes'), 'Content type has attributes');
       t.is(merged.attributes.length, 3, 'Content type has three attributes');
 
@@ -583,15 +674,80 @@ test('Content Type config check attribute type is string', t => {
   t.is(check, 'Attribute type must be a string', 'Attribute type must be a string');
 });
 
+test('Content Type config check attribute as key', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: 'foo',
+      id: 'foo',
+      type: 'text',
+      key: 'true',
+    }, {
+      name: 'bar',
+      id: 'bar',
+      type: 'text',
+    }],
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Attribute key must be a boolean', 'Attribute key must be a boolean');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+    key: true,
+  }, {
+    name: 'bar',
+    id: 'bar',
+    type: 'text',
+    key: 'true',
+  }];
+  check = types.raw.check(type);
+  t.is(check, 'Attribute key must be a boolean', 'Attribute type must be a string');
+});
+
+test('Content Type config only one attribute as key', t => {
+  const type = {
+    name: 'test',
+    id: 'test',
+    attributes: [{
+      name: 'foo',
+      id: 'foo',
+      type: 'text',
+      key: true,
+    }, {
+      name: 'bar',
+      id: 'bar',
+      type: 'text',
+      key: true,
+    }],
+  };
+  const check = types.raw.check(type);
+  t.is(check, 'Only one attribute key is allowed', 'Attribute key must be a boolean');
+});
+
 test('configuration check - winner', t => {
   const type = {
     name: 'Foo',
     id: 'foo',
     attributes: [
       {
-        type: 'input-plugin-text',
+        type: 'text',
         id: 'text',
         name: 'Text',
+        key: true,
+      },
+      {
+        type: 'email',
+        id: 'email',
+        name: 'Email',
+        key: false,
+      },
+      {
+        type: 'text',
+        id: 'name',
+        name: 'Name',
       },
     ],
   };

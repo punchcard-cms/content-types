@@ -8,6 +8,7 @@ attributes:
     description: I am the Foo Content Type Config text field description
     inputs:
       text:
+        key: true
         settings:
           empty: false
   - type: email
