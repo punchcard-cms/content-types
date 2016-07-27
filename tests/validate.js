@@ -219,6 +219,34 @@ test('Validate - Fail', t => {
   });
 });
 
+test('Validate Repeatable - Pass', t => {
+  return types.only('bar').then(ct => {
+    const input = {
+      'something-new--text': 'Foo bar baz',
+      'my-textarea--textarea': 'This is some long text',
+      'my-email--email--0': 'test@email.one',
+      'my-email--email--1': 'test@email.two',
+    };
+    const result = validation(input, ct);
+    t.true(result, 'All validation passes');
+  });
+});
+
+test('Validate Repeatable - Fail', t => {
+  return types.only('bar').then(ct => {
+    const input = {
+      'something-new--text': 'Foo bar baz',
+      'my-textarea--textarea': 'This is some long text',
+      'my-email--email': 'test@email',
+    };
+    const expected = {
+      'my-email--email': 'At Least 2 instances are required',
+    };
+    const result = validation(input, ct);
+    t.deepEqual(result, expected, 'Returns an object of inputs that have failed');
+  });
+});
+
 test('Required - Pass', t => {
   return types.only('baz').then(ct => {
     const input = {
