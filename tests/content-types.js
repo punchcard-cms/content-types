@@ -21,6 +21,7 @@ test('Content Types', t => {
 test('merged', t => {
   return types()
     .then(result => {
+      console.log(JSON.stringify(result[2], null, 2));
       t.is(result[0].name, 'Content Type BAR', 'Get first content type name');
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
       t.is(result[0].id, 'bar', 'Get first content type id');
