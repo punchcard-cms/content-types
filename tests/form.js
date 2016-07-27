@@ -15,6 +15,7 @@ test('Form Generation', t => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
+
     t.true(rendered.hasOwnProperty('html'), 'HTML generated');
 
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
