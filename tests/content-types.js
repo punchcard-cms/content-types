@@ -498,6 +498,20 @@ test('configuration check - id/kebab', t => {
   t.is(result, 'FooFoo needs to be written in kebab case (e.g. foofoo)', 'ID should be kebab');
 });
 
+test('Content Type config check identifier', t => {
+  const type = {
+    name: 'foo',
+    id: 'foo',
+    identifier: 'true',
+  };
+  let check = types.raw.check(type);
+  t.is(check, 'Content type identifier must be a boolean', 'identifier must be a boolean');
+
+  type.identifier = '';
+  check = types.raw.check(type);
+  t.is(check, 'Content type identifier must be a boolean', 'identifier must be a boolean');
+});
+
 test('Content Type check attributes exists', t => {
   const type = {
     name: 'Foo',
@@ -678,75 +692,23 @@ test('Content Type config check attribute type is string', t => {
   t.is(check, 'Attribute type must be a string', 'Attribute type must be a string');
 });
 
-test('Content Type config check attribute as key', t => {
-  const type = {
-    name: 'test',
-    id: 'test',
-    attributes: [{
-      name: 'foo',
-      id: 'foo',
-      type: 'text',
-      key: 'true',
-    }, {
-      name: 'bar',
-      id: 'bar',
-      type: 'text',
-    }],
-  };
-  let check = types.raw.check(type);
-  t.is(check, 'Attribute key must be a boolean', 'Attribute key must be a boolean');
 
-  type.attributes = [{
-    name: 'foo',
-    id: 'foo',
-    type: 'text',
-    key: true,
-  }, {
-    name: 'bar',
-    id: 'bar',
-    type: 'text',
-    key: 'true',
-  }];
-  check = types.raw.check(type);
-  t.is(check, 'Attribute key must be a boolean', 'Attribute type must be a string');
-});
-
-test('Content Type config only one attribute as key', t => {
-  const type = {
-    name: 'test',
-    id: 'test',
-    attributes: [{
-      name: 'foo',
-      id: 'foo',
-      type: 'text',
-      key: true,
-    }, {
-      name: 'bar',
-      id: 'bar',
-      type: 'text',
-      key: true,
-    }],
-  };
-  const check = types.raw.check(type);
-  t.is(check, 'Only one attribute key is allowed', 'Attribute key must be a boolean');
-});
 
 test('configuration check - winner', t => {
   const type = {
     name: 'Foo',
     id: 'foo',
+    identifier: true,
     attributes: [
       {
         type: 'text',
         id: 'text',
         name: 'Text',
-        key: true,
       },
       {
         type: 'email',
         id: 'email',
         name: 'Email',
-        key: false,
       },
       {
         type: 'text',
