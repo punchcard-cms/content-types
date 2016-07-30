@@ -1,0 +1,8 @@
+name: Basic Content Type
+description: A very basic configuration
+id: basic
+attributes:
+  - type: text
+  - type: email
+  - type: datetime
+  - type: textarea

@@ -25,14 +25,18 @@ test('merged', t => {
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
       t.is(result[0].id, 'bar', 'Get first content type id');
       t.is(result[0].identifier, 'something-new', 'Get first content type identifier');
-      t.is(result[1].name, 'Content Type Baz', 'Get second content type name');
-      t.is(result[1].description, 'Bar Baz Foo', 'Get second content type desc');
-      t.is(result[1].id, 'baz', 'Get second content type id');
-      t.is(result[1].identifier, 'plugin-required-save', 'Get second content type identifier');
-      t.is(result[2].name, 'Content Type FOO', 'Get third content type name');
-      t.is(result[2].description, 'Foo Bar Baz', 'Get third content type desc');
-      t.is(result[2].id, 'foo', 'Get third content type id');
-      t.is(result[2].identifier, 'new-text-thing', 'Get third content type identifier');
+      t.is(result[1].name, 'Basic Content Type', 'Get second content type name');
+      t.is(result[1].description, 'A very basic configuration', 'Get second content type desc');
+      t.is(result[1].id, 'basic', 'Get second content type id');
+      t.is(result[1].identifier, 'text', 'Get second content type identifier');
+      t.is(result[2].name, 'Content Type Baz', 'Get second content type name');
+      t.is(result[2].description, 'Bar Baz Foo', 'Get second content type desc');
+      t.is(result[2].id, 'baz', 'Get second content type id');
+      t.is(result[2].identifier, 'plugin-required-save', 'Get second content type identifier');
+      t.is(result[3].name, 'Content Type FOO', 'Get third content type name');
+      t.is(result[3].description, 'Foo Bar Baz', 'Get third content type desc');
+      t.is(result[3].id, 'foo', 'Get third content type id');
+      t.is(result[3].identifier, 'new-text-thing', 'Get third content type identifier');
     });
 });
 
@@ -78,6 +82,27 @@ test('reject when same attribute ids', t => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input ID \'text\' in content type \'Foo\' cannot be duplicated (in \'Text\')', 'Dupe ids Rejected');
+  });
+});
+
+test('reject when same no attribute ids in config, and duplicate plugins', t => {
+  const testCT = {
+    name: 'Foo',
+    id: 'foo',
+    attributes: [
+      {
+        type: 'text',
+      },
+      {
+        type: 'text',
+      },
+    ],
+  };
+
+  return types([testCT]).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Input ID \'text\' in content type \'Foo\' has a duplicate id. Try adding a unique id to attribute 2 in the config.', 'Dupe ids Rejected with no config ids');
   });
 });
 
