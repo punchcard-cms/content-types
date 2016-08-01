@@ -177,6 +177,7 @@ test('merged with correct param', t => {
     name: 'FooRific',
     description: 'A very foo content model.',
     id: 'foo-rific',
+    identifier: 'username',
     attributes: [
       {
         type: 'text',

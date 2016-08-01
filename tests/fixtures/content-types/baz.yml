@@ -1,6 +1,7 @@
 name: Content Type Baz
 description: Bar Baz Foo
 id: baz
+identifier: plugin-required-save
 attributes:
   - type: text
     name: Plugin required save
