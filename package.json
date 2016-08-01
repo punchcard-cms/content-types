@@ -40,7 +40,6 @@
     "node-dir": "^0.1.11",
     "nunjucks": "^2.4.0",
     "plugabilly": "^0.1.0",
-    "underscore.string": "^3.3.4",
     "uuid": "^2.0.2"
   },
   "devDependencies": {
