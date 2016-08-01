@@ -285,7 +285,7 @@ test('merge fails if no identifier', t => {
     ],
   };
 
-  return types([testCT]).then((result) => {
+  return types([testCT]).then(() => {
     t.fail('should produce an error');
   }).catch(e => {
     t.is(e.message, 'Content type \'foo-rific\' requires an identifier');
@@ -309,7 +309,7 @@ test('merge fails if identifier is repeatable', t => {
     ],
   };
 
-  return types([testCT]).then((result) => {
+  return types([testCT]).then(() => {
     t.fail('should produce an error');
   }).catch(e => {
     t.is(e.message, 'Identifier \'username\' in content type \'foo-rific\' must not be a repeatable attribute');
@@ -404,7 +404,7 @@ test('merge fails if identifier is repeatable', t => {
     ],
   };
 
-  return types([testCT]).then((result) => {
+  return types([testCT]).then(() => {
     t.fail('should produce an error');
   }).catch(e => {
     t.is(e.message, 'Identifier \'username\' in content type \'foo-rific\' must not be a repeatable attribute');
