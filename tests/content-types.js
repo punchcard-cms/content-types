@@ -266,3 +266,147 @@ test('merged with correct param', t => {
       });
     });
 });
+
+
+// Identifiers
+test('merge fails if no identifier', t => {
+  const testCT = {
+    name: 'FooRific',
+    description: 'A very foo content model.',
+    id: 'foo-rific',
+    attributes: [
+      {
+        type: 'text',
+        id: 'username',
+        name: 'Username',
+        description: 'Please enter a username',
+        repeatable: true,
+      },
+    ],
+  };
+
+  return types([testCT]).then((result) => {
+    t.fail('should produce an error');
+  }).catch(e => {
+    t.is(e.message, 'Content type \'foo-rific\' requires an identifier');
+  });
+});
+
+test('merge fails if identifier is repeatable', t => {
+  const testCT = {
+    name: 'FooRific',
+    description: 'A very foo content model.',
+    id: 'foo-rific',
+    identifier: 'username',
+    attributes: [
+      {
+        type: 'text',
+        id: 'username',
+        name: 'Username',
+        description: 'Please enter a username',
+        repeatable: true,
+      },
+    ],
+  };
+
+  return types([testCT]).then((result) => {
+    t.fail('should produce an error');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'username\' in content type \'foo-rific\' must not be a repeatable attribute');
+  });
+});
+
+
+test('merge fails if identifier not in attributes', t => {
+  const testCT = {
+    name: 'FooRific',
+    description: 'A very foo content model.',
+    id: 'foo-rific',
+    identifier: 'foo',
+    attributes: [
+      {
+        type: 'text',
+        id: 'username',
+        name: 'Username',
+        description: 'Please enter a username',
+      },
+    ],
+  };
+
+  return types([testCT]).then(() => {
+    t.fail('should produce an error');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'foo\' was not found in content type \'foo-rific\'');
+  });
+});
+
+test('merge fails if identifier takes options', t => {
+  const testCT = {
+    name: 'FooRific',
+    description: 'A very foo content model.',
+    id: 'foo-rific',
+    identifier: 'username',
+    attributes: [
+      {
+        type: 'select',
+        id: 'username',
+        name: 'Username',
+        description: 'Please enter a username',
+      },
+    ],
+  };
+
+  return types([testCT]).then(() => {
+    t.fail('should produce an error');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'username\' in content type \'foo-rific\' must not have options');
+  });
+});
+
+test('merge fails if identifier has multiple inputs', t => {
+  const testCT = {
+    name: 'FooRific',
+    description: 'A very foo content model.',
+    id: 'foo-rific',
+    identifier: 'username',
+    attributes: [
+      {
+        type: 'quote',
+        id: 'username',
+        name: 'Username',
+        description: 'Please enter a username',
+      },
+    ],
+  };
+
+  return types([testCT]).then(() => {
+    t.fail('should produce an error');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'username\' in content type \'foo-rific\' must be a single input attribute');
+  });
+});
+
+
+test('merge fails if identifier is repeatable', t => {
+  const testCT = {
+    name: 'FooRific',
+    description: 'A very foo content model.',
+    id: 'foo-rific',
+    identifier: 'username',
+    attributes: [
+      {
+        type: 'text',
+        id: 'username',
+        name: 'Username',
+        description: 'Please enter a username',
+        repeatable: true,
+      },
+    ],
+  };
+
+  return types([testCT]).then((result) => {
+    t.fail('should produce an error');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'username\' in content type \'foo-rific\' must not be a repeatable attribute');
+  });
+});
