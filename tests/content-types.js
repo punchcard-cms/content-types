@@ -85,27 +85,6 @@ test('reject when same attribute ids', t => {
   });
 });
 
-test('reject when same no attribute ids in config, and duplicate plugins', t => {
-  const testCT = {
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-      },
-      {
-        type: 'text',
-      },
-    ],
-  };
-
-  return types([testCT]).then(() => {
-    t.fail('Merged should fail');
-  }).catch(e => {
-    t.is(e.message, 'Input ID \'text\' in content type \'Foo\' has a duplicate id. Try adding a unique id to attribute 2 in the config.', 'Dupe ids Rejected with no config ids');
-  });
-});
-
 test('reject when content type config has issues', t => {
   return types([{}]).then(() => {
     t.fail('Merged should fail');

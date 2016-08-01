@@ -168,12 +168,38 @@ test('Content Type - at least one attribute', t => {
   t.is(check, 'Content type \'test\' must have at least one attribute', 'Content Type should have at least one attribute');
 });
 
+test('Content Type config check attribute - requires id', t => {
+  const type = {
+    name: 'test',
+    id: 'test-bar',
+    attributes: [{
+      name: 'foo',
+      id: '',
+    }, {
+      name: 'bar',
+    }],
+  };
+  let check = utils.check.attributes(type);
+  t.is(check, 'Content type \'test\' config requires all attributes to have an id.', 'Content Type attributes require an id');
+
+  type.attributes = [{
+    name: 'foo',
+    id: 'foo',
+    type: 'text',
+  }, {
+    name: 'bar',
+  }];
+  check = utils.check.attributes(type);
+  t.is(check, 'Content type \'test\' config requires all attributes to have an id.', 'Content Type attributes require an id');
+});
+
 test('Content Type config attribute name/string', t => {
   const type = {
     name: 'test',
     id: 'test',
     attributes: [{
       name: ['foo'],
+      id: 'foo',
     }],
   };
   let check = utils.check.attributes(type);
@@ -181,12 +207,16 @@ test('Content Type config attribute name/string', t => {
 
   type.attributes = [{
     name: [],
+    id: 'baz',
+    type: 'text',
   }, {
     name: 'foo',
     id: 'foo',
     type: 'text',
   }, {
     name: true,
+    id: 'bar',
+    type: 'text',
   }];
   check = utils.check.attributes(type);
   t.is(check, 'Attribute names in content type \'test\' must be a string', 'Content Type attributes require a name');
