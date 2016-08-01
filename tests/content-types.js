@@ -54,6 +54,7 @@ test('reject when plugin not found', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'text',
     attributes: [
       {
         type: 'input-plugin-text',
@@ -74,6 +75,7 @@ test('reject when name not found - no id', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'text',
     attributes: [
       {
         type: 'text',
@@ -92,6 +94,7 @@ test('reject when name not found - id', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'My Text',
     attributes: [
       {
         type: 'text',
@@ -111,6 +114,7 @@ test('reject when id not found', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'My Text',
     attributes: [
       {
         type: 'text',
@@ -130,6 +134,7 @@ test('reject when id is not kebab case', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'My Text',
     attributes: [
       {
         type: 'text',
@@ -150,6 +155,7 @@ test('reject when id is duplicated', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'My Text',
     attributes: [
       {
         type: 'text',
