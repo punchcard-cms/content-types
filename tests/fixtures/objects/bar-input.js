@@ -82,7 +82,7 @@ const barInput = {
         },
       },
       name: 'SOme New THING',
-      type: 'text',
+      type: 'quote',
       validation: 'validation',
     },
   ],
