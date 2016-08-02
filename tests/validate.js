@@ -214,7 +214,6 @@ test('Validate - Fail', t => {
     };
 
     const result = validation(input, ct);
-
     t.deepEqual(result, expected, 'Returns an object of inputs that have failed');
   });
 });
