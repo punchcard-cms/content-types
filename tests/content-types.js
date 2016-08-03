@@ -1,6 +1,9 @@
 import test from 'ava';
 import cloneDeep from 'lodash/cloneDeep';
 import types from '../lib/content-types';
+import only from '../lib/content-types/only.js';
+import barInput from './fixtures/objects//bar-input.js';
+import barExpected from './fixtures/objects//bar-expected.js';
 
 const correctCT = [{
   name: 'Foo',
@@ -45,15 +48,29 @@ const correctCT = [{
 }];
 
 test('Content Types', t => {
-  return types.only('bar', {
-    'my-textarea': {
-      textarea: {
-        value: 'Hello World I am here',
-      },
+  return only(barInput, {
+    'something-new': {
+      text: { value: 'foo' },
     },
-  }).then(() => {
-    // console.log(util.inspect(result, false, null));
-    // fs.writeFileSync('fixtures/output.js', JSON.stringify(result, null, 2));
+    'my-quote': [
+      {
+        author: { value: 'bar' },
+        quote: { value: 'foo' },
+        source: { value: 'baz' },
+      },
+      {
+        author: { value: 'bar1' },
+        quote: { value: 'foo1' },
+        source: { value: 'baz1' },
+      },
+      {
+        author: { value: 'bar2' },
+        quote: { value: 'foo2' },
+        source: { value: 'baz2' },
+      },
+    ],
+  }).then(result => {
+    t.deepEqual(result, barExpected, 'Only method works!');
     t.pass();
   });
 });

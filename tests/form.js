@@ -2,6 +2,7 @@ import test from 'ava';
 import types from '../lib/content-types';
 import form from '../lib/form';
 import includes from 'lodash/includes';
+import barInput from './fixtures/objects/bar-expected.js';
 
 test('All Form Goodies', t => {
   t.is(typeof form, 'function', 'Form exports a function');
@@ -143,3 +144,16 @@ test('Form Generation, overrides options in select', t => {
     t.false(includes(rendered.html, '<option value="don" >Donatello</option>', 'determines non-existence of default option 4'));
   });
 });
+
+test('Form Generation, with repeatables', t => {
+  const input = barInput;
+
+  return form(input).then(rendered => {
+    // fs.writeFileSync('fixtures/output.js', rendered.html);
+    t.true(includes(rendered.html, '<label for="c4087332-edda-432d-8464-cc9679742e4e--0">Citation:</label>'), 'Indexing for label of first instance');
+    t.true(includes(rendered.html, '<input type="text" id="c4087332-edda-432d-8464-cc9679742e4e--0" name="my-quote--quote--0" value="foo" placeholder="Source Material" />'), 'Indexing for label of second instance');
+    t.true(includes(rendered.html, '<label for="c4087332-edda-432d-8464-cc9679742e4e--1">Citation:</label>'), 'Indexing for label of second instance');
+    t.true(includes(rendered.html, '<input type="text" id="c4087332-edda-432d-8464-cc9679742e4e--1" name="my-quote--quote--1" value="foo1" placeholder="Source Material" />'), 'Indexing for input text of second instance');
+  });
+});
+
