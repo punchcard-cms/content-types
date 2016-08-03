@@ -1,8 +1,51 @@
 import test from 'ava';
+import cloneDeep from 'lodash/cloneDeep';
 import types from '../lib/content-types';
 import only from '../lib/content-types/only.js';
 import barInput from './fixtures/objects//bar-input.js';
 import barExpected from './fixtures/objects//bar-expected.js';
+
+const correctCT = [{
+  name: 'Foo',
+  id: 'foo',
+  identifier: 'my-text',
+  attributes: [
+    {
+      type: 'text',
+      name: 'My Text',
+      id: 'my-text',
+    },
+    {
+      type: 'email',
+      name: 'My Email',
+      id: 'my-email',
+    },
+    {
+      type: 'quote',
+      name: 'Quote',
+      id: 'quote',
+    },
+    {
+      type: 'checkbox',
+      name: 'Checkbox',
+      id: 'checkbox',
+      inputs: {
+        checkbox: {
+          options: [
+            {
+              label: 'one',
+              value: 'one',
+            },
+            {
+              label: 'two',
+              value: 'two',
+            },
+          ],
+        },
+      },
+    },
+  ],
+}];
 
 test('Content Types', t => {
   return only(barInput, {
@@ -48,19 +91,7 @@ test('merged', t => {
 });
 
 test('reject when something other than array is passed in', t => {
-  const testCT = {
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'input-plugin-text',
-        id: 'text',
-        name: 'Text',
-      },
-    ],
-  };
-
-  return types(testCT).then(() => {
+  return types(correctCT[0]).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Content types must be an array', 'Non-Array Rejected');
@@ -68,19 +99,10 @@ test('reject when something other than array is passed in', t => {
 });
 
 test('reject when plugin not found', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'input-plugin-text',
-        id: 'text',
-        name: 'Text',
-      },
-    ],
-  }];
+  const type = cloneDeep(correctCT);
+  type[0].attributes[0].type = 'input-plugin-text';
 
-  return types(testCT).then(() => {
+  return types(type).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'input-plugin-text\' not found', 'Missing Plugin');
@@ -88,17 +110,11 @@ test('reject when plugin not found', t => {
 });
 
 test('reject when name not found - no id', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-      },
-    ],
-  }];
+  const type = cloneDeep(correctCT);
+  delete type[0].attributes[0].name;
+  delete type[0].attributes[0].id;
 
-  return types(testCT).then(() => {
+  return types(type).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'text\' in content type \'Foo\' needs a name', 'Missing Name');
@@ -106,18 +122,11 @@ test('reject when name not found - no id', t => {
 });
 
 test('reject when name not found - id', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-        id: 'My Text',
-      },
-    ],
-  }];
+  const type = cloneDeep(correctCT);
+  delete type[0].attributes[0].name;
+  type[0].attributes[0].id = 'My Text';
 
-  return types(testCT).then(() => {
+  return types(type).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'My Text\' in content type \'Foo\' needs a name', 'Missing Name');
@@ -125,18 +134,10 @@ test('reject when name not found - id', t => {
 });
 
 test('reject when id not found', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-        name: 'My Text',
-      },
-    ],
-  }];
+  const type = cloneDeep(correctCT);
+  delete type[0].attributes[0].id;
 
-  return types(testCT).then(() => {
+  return types(type).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input \'My Text\' in content type \'Foo\' needs an ID', 'Missing ID');
@@ -144,19 +145,10 @@ test('reject when id not found', t => {
 });
 
 test('reject when id is not kebab case', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-        name: 'My Text',
-        id: 'myText',
-      },
-    ],
-  }];
+  const type = cloneDeep(correctCT);
+  type[0].attributes[0].id = 'myText';
 
-  return types(testCT).then(() => {
+  return types(type).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
     t.is(e.message, 'Input ID \'myText\' needs to be written in kebab case (e.g. \'my-text\')', 'Not Kebab ID');
@@ -164,36 +156,88 @@ test('reject when id is not kebab case', t => {
 });
 
 test('reject when id is duplicated', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-        name: 'My Text',
-        id: 'my-text',
-      },
-      {
-        type: 'email',
-        name: 'My Email',
-        id: 'my-text',
-      },
-    ],
-  }];
+  const type = cloneDeep(correctCT);
+  type[0].attributes[1].id = 'my-text';
 
-  return types(testCT).then(() => {
+  return types(type).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
-    t.is(e.message, 'Input ID \'my-text\' in content type \'Foo\' cannot be duplicated (in \'My Email\')', 'No Duplicate IDs');
+    t.is(e.message, 'Input ID \'my-text\' in content type \'Foo\' cannot be duplicated (in \'My Email\')', 'Duplicate id in attributes');
   });
 });
 
+test('reject when identifier missing', t => {
+  const type = cloneDeep(correctCT);
+  delete type[0].identifier;
+
+  return types(type).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Identifier missing in content type \'Foo\'', 'Identifier not in config');
+  });
+});
+
+test('reject when identifier not a string', t => {
+  const type = cloneDeep(correctCT);
+  type[0].identifier = [];
+
+  return types(type).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Identifier in content type \'Foo\' must be a string', 'Identifier not string');
+  });
+});
+
+test('Content Type config check identifier exists', t => {
+  const type = cloneDeep(correctCT);
+  type[0].identifier = 'sandwich';
+
+  return types(type).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'sandwich\' is not an attribute in content type \'Foo\'.', 'Identifier must match an attribute');
+  });
+});
+
+test('Content Type config check identifier input not multi', t => {
+  const type = cloneDeep(correctCT);
+  type[0].identifier = 'quote';
+
+  return types(type).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'quote\' in content type \'Foo\' has more than one input. Only single-input attributes may be the identifier.', 'Identifier attr cannot have multiple inputs');
+  });
+});
+
+test('reject when identifier is repeatable', t => {
+  const type = cloneDeep(correctCT);
+  type[0].attributes[0].repeatable = true;
+
+  return types(type).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'my-text\' in content type \'Foo\' is repeatable. Only non-repeatable attributes may be the identifier.', 'Identifier cannot be repeatable');
+  });
+});
+
+test('reject when identifier has options', t => {
+  const type = cloneDeep(correctCT);
+  type[0].identifier = 'checkbox';
+
+  return types(type).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Identifier \'checkbox\' in content type \'Foo\' has options. Attributes with options may not be the identifier.', 'Identifier cannot have options');
+  });
+});
 
 test('merged with correct param', t => {
   const testCT = {
     name: 'FooRific',
     description: 'A very foo content model.',
     id: 'foo-rific',
+    identifier: 'username',
     attributes: [
       {
         type: 'text',

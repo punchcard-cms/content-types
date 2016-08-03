@@ -1,6 +1,7 @@
 name: Content Type BAR
 description: Bar Baz Foo
 id: bar
+identifier: something-new
 attributes:
   - type: text
     id: something-new
