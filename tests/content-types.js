@@ -15,18 +15,28 @@ test('Content Types', t => {
   });
 });
 
+//////////////////////////////
+// types() promise
+//////////////////////////////
 test('merged', t => {
   return types()
     .then(result => {
       t.is(result[0].name, 'Content Type BAR', 'Get first content type name');
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
       t.is(result[0].id, 'bar', 'Get first content type id');
-      t.is(result[1].name, 'Content Type Baz', 'Get second content type name');
-      t.is(result[1].description, 'Bar Baz Foo', 'Get second content type desc');
-      t.is(result[1].id, 'baz', 'Get second content type id');
-      t.is(result[2].name, 'Content Type FOO', 'Get third content type name');
-      t.is(result[2].description, 'Foo Bar Baz', 'Get third content type desc');
-      t.is(result[2].id, 'foo', 'Get third content type id');
+      t.is(result[0].identifier, 'something-new', 'Get first content type identifier');
+      t.is(result[1].name, 'Basic Content Type', 'Get second content type name');
+      t.is(result[1].description, 'A very basic configuration', 'Get second content type desc');
+      t.is(result[1].id, 'basic', 'Get second content type id');
+      t.is(result[1].identifier, 'text', 'Get second content type identifier');
+      t.is(result[2].name, 'Content Type Baz', 'Get second content type name');
+      t.is(result[2].description, 'Bar Baz Foo', 'Get second content type desc');
+      t.is(result[2].id, 'baz', 'Get second content type id');
+      t.is(result[2].identifier, 'plugin-required-save', 'Get second content type identifier');
+      t.is(result[3].name, 'Content Type FOO', 'Get third content type name');
+      t.is(result[3].description, 'Foo Bar Baz', 'Get third content type desc');
+      t.is(result[3].id, 'foo', 'Get third content type id');
+      t.is(result[3].identifier, 'new-text-thing', 'Get third content type identifier');
     });
 });
 
@@ -50,6 +60,39 @@ test('reject when something other than array is passed in', t => {
   });
 });
 
+test('reject when same attribute ids', t => {
+  const testCT = {
+    name: 'Foo',
+    id: 'foo',
+    attributes: [
+      {
+        type: 'text',
+        id: 'text',
+        name: 'Text',
+      },
+      {
+        type: 'text',
+        id: 'text',
+        name: 'Text',
+      },
+    ],
+  };
+
+  return types([testCT]).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Input ID \'text\' in content type \'Foo\' cannot be duplicated (in \'Text\')', 'Dupe ids Rejected');
+  });
+});
+
+test('reject when content type config has issues', t => {
+  return types([{}]).then(() => {
+    t.fail('Merged should fail');
+  }).catch(e => {
+    t.is(e.message, 'Content types require a name', 'Triggers config check');
+  });
+});
+
 test('reject when plugin not found', t => {
   const testCT = [{
     name: 'Foo',
@@ -70,13 +113,16 @@ test('reject when plugin not found', t => {
   });
 });
 
-test('reject when name not found - no id', t => {
+test('reject when identifier is mutli-input', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'quote',
     attributes: [
       {
-        type: 'text',
+        type: 'quote',
+        id: 'quote',
+        name: 'Quote',
       },
     ],
   }];
@@ -84,18 +130,21 @@ test('reject when name not found - no id', t => {
   return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
-    t.is(e.message, 'Input \'text\' in content type \'Foo\' needs a name', 'Missing Name');
+    t.is(e.message, 'Identifier quote in content type \'Foo\' has more than one input. Only single-input attributes may be the identifier.', 'Identifier only allowed one input');
   });
 });
 
-test('reject when name not found - id', t => {
+test('reject when identifier is repeatable', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
+    identifier: 'text',
     attributes: [
       {
         type: 'text',
-        id: 'My Text',
+        id: 'text',
+        name: 'Text',
+        repeatable: true,
       },
     ],
   }];
@@ -103,18 +152,19 @@ test('reject when name not found - id', t => {
   return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
-    t.is(e.message, 'Input \'My Text\' in content type \'Foo\' needs a name', 'Missing Name');
+    t.is(e.message, 'Identifier text in content type \'Foo\' is repeatable. Only non-repeatable attributes may be the identifier.', 'Identifier cannot be repeatable');
   });
 });
 
-test('reject when id not found', t => {
+test('reject when all identifiers are mutli-input', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
     attributes: [
       {
-        type: 'text',
-        name: 'My Text',
+        type: 'quote',
+        id: 'quote',
+        name: 'Quote',
       },
     ],
   }];
@@ -122,19 +172,20 @@ test('reject when id not found', t => {
   return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
-    t.is(e.message, 'Input \'My Text\' in content type \'Foo\' needs an ID', 'Missing ID');
+    t.is(e.message, 'Content type \'Foo\' does not have an attribute which can be an identifier.', 'Identifier only allowed one input');
   });
 });
 
-test('reject when id is not kebab case', t => {
+test('reject when identifier is repeatable', t => {
   const testCT = [{
     name: 'Foo',
     id: 'foo',
     attributes: [
       {
         type: 'text',
-        name: 'My Text',
-        id: 'myText',
+        id: 'text',
+        name: 'Text',
+        repeatable: true,
       },
     ],
   }];
@@ -142,32 +193,7 @@ test('reject when id is not kebab case', t => {
   return types(testCT).then(() => {
     t.fail('Merged should fail');
   }).catch(e => {
-    t.is(e.message, 'Input ID \'myText\' needs to be written in kebab case (e.g. \'my-text\')', 'Not Kebab ID');
-  });
-});
-
-test('reject when id is duplicated', t => {
-  const testCT = [{
-    name: 'Foo',
-    id: 'foo',
-    attributes: [
-      {
-        type: 'text',
-        name: 'My Text',
-        id: 'my-text',
-      },
-      {
-        type: 'email',
-        name: 'My Email',
-        id: 'my-text',
-      },
-    ],
-  }];
-
-  return types(testCT).then(() => {
-    t.fail('Merged should fail');
-  }).catch(e => {
-    t.is(e.message, 'Input ID \'my-text\' in content type \'Foo\' cannot be duplicated (in \'My Email\')', 'No Duplicate IDs');
+    t.is(e.message, 'Content type \'Foo\' does not have an attribute which can be an identifier.', 'Identifier only allowed one input');
   });
 });
 
@@ -182,6 +208,7 @@ test('merged with correct param', t => {
         type: 'text',
         id: 'username',
         name: 'Username',
+        repeatable: {},
         description: 'Please enter a username',
       },
       {
@@ -222,6 +249,7 @@ test('merged with correct param', t => {
       t.is(merged.name, 'FooRific', 'Content type name does not change');
       t.is(merged.description, 'A very foo content model.', 'Content type description does not change');
       t.is(merged.id, 'foo-rific', 'Content type ID does not change');
+      t.is(merged.identifier, 'full-name', 'Content type identifier is automatically selected');
       t.true(merged.hasOwnProperty('attributes'), 'Content type has attributes');
       t.is(merged.attributes.length, 3, 'Content type has three attributes');
 
@@ -257,5 +285,74 @@ test('merged with correct param', t => {
           t.true(attr.inputs[input[0]].hasOwnProperty('script'), 'Attribute has scripts');
         }
       });
+    });
+});
+
+//////////////////////////////
+// content-type names
+//////////////////////////////
+test('get content types names', t => {
+  const ctypes = [
+    {
+      name: 'Content Type BAR',
+      description: 'Bar Baz Foo',
+      id: 'bar',
+    },
+    {
+      name: 'Content Type Baz',
+      description: 'Bar Baz Foo',
+      id: 'baz',
+    },
+    {
+      name: 'Content Type FOO',
+      description: 'Foo Bar Baz',
+      id: 'foo',
+    },
+  ];
+
+  const names = types.raw.names(ctypes);
+  t.is(names[0], 'Content Type BAR', 'Should have name');
+  t.is(names[1], 'Content Type Baz', 'Should have name');
+  t.is(names[2], 'Content Type FOO', 'Should have name');
+});
+
+//////////////////////////////
+// content-type attributes
+//////////////////////////////
+test('get attributes - bad', t => {
+  const bad = [
+    {
+      name: 'Content Type BAR',
+      description: 'Bar Baz Foo',
+      id: 'bar',
+      attributes: '',
+    },
+    {
+      name: 'Content Type Baz',
+      description: 'Bar Baz Foo',
+      id: 'baz',
+    },
+    {
+      name: 'Content Type FOO',
+      description: 'Foo Bar Baz',
+      id: 'foo',
+      attributes: [],
+    },
+  ];
+  let attrs = types.raw.attributes('bar', bad);
+  t.false(attrs, 'Wrong type attributes should return false');
+
+  attrs = types.raw.attributes('baz', bad);
+  t.false(attrs, 'Missing attributes should return false');
+
+  attrs = types.raw.attributes('foo', bad);
+  t.false(attrs, 'Empty attributes should return false');
+});
+
+test('get attributes of one type', t => {
+  return types()
+    .then(result => {
+      const attrs = types.raw.attributes('bar', result);
+      t.is(result[0].attributes, attrs, 'Should get the attributes object of one type');
     });
 });
