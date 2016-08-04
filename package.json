@@ -54,7 +54,7 @@
     "input-plugin-quote": "0.0.1",
     "input-plugin-select": "^0.3.0",
     "input-plugin-selects-related": "0.1.0",
-    "input-plugin-text": "^0.0.5",
+    "input-plugin-text": "^0.1.0",
     "input-plugin-textarea": "^0.1.0",
     "node-dir": "^0.1.12",
     "nyc": "^7.1.0",
