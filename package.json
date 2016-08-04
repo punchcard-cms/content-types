@@ -52,7 +52,7 @@
     "input-plugin-datetime": "^0.0.1",
     "input-plugin-email": "^0.1.0",
     "input-plugin-quote": "0.0.1",
-    "input-plugin-select": "^0.1.0",
+    "input-plugin-select": "^0.3.0",
     "input-plugin-selects-related": "0.0.1",
     "input-plugin-text": "^0.0.5",
     "input-plugin-textarea": "^0.0.1",
