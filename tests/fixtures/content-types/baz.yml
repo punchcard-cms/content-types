@@ -11,7 +11,7 @@ attributes:
     inputs:
       text:
         settings:
-          empty: false
+          empty: true
   - type: text
     name: Input required save
     id: input-required-save
@@ -20,7 +20,7 @@ attributes:
       text:
         required: 'save'
         settings:
-          empty: false
+          empty: true
   - type: text
     name: Plugin required publish
     id: plugin-required-publish
@@ -29,7 +29,7 @@ attributes:
     inputs:
       text:
         settings:
-          empty: false
+          empty: true
   - type: text
     name: Input required publish
     id: input-required-publish
@@ -38,7 +38,7 @@ attributes:
       text:
         required: 'publish'
         settings:
-          empty: false
+          empty: true
   - type: text
     name: Plugin required bad level
     id: plugin-required-bad-level
@@ -47,7 +47,7 @@ attributes:
     inputs:
       text:
         settings:
-          empty: false
+          empty: true
   - type: text
     name: Input required bad level
     id: input-required-bad-level
@@ -56,7 +56,7 @@ attributes:
       text:
         required: 'smublish'
         settings:
-          empty: false
+          empty: true
   - type: quote
     name: MULTI Plugin required save
     id: multi-plugin-required-save
@@ -70,7 +70,7 @@ attributes:
       author:
         required: 'publish'
         settings:
-          empty: false
+          empty: true
   - type: selects-related
     name: Two related select elements
     id: input-related-selects
