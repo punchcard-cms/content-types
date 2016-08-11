@@ -106,3 +106,29 @@ test('Add Required - Pass', t => {
   t.true(includes(result, expected));
 });
 
+test('Add Required Checkbox - Pass', t => {
+  const param = {
+    html: '"<label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">My Awesome Text Area</label><textarea id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="my-textarea--textarea" placeholder="Type something..." />test</textarea>"',
+    input: {
+      description: 'I am the Bar Content Type Config textarea description',
+      html: '"<label for="91f79620-ba21-4a4a-a4c7-02f456129b0f--1"><input type="checkbox" name="my-checkbox--checkbox" id="91f79620-ba21-4a4a-a4c7-02f456129b0f--1" value="one" >One</label>"',
+      id: 'my-checkbox',
+      inputs: {
+        checkbox: {
+          id: '91f79620-ba21-4a4a-a4c7-02f456129b0f--1',
+          label: 'My Awesome Checkbox',
+          name: 'my-checkbox--checkbox',
+          type: 'checkbox',
+        },
+      },
+      name: 'My Awesome Checkbox',
+      required: 'save',
+      type: 'checkbox',
+    },
+    index: undefined,
+  };
+  const expected = 'aria-required="true" required';
+  const result = html.required(param.html, param.input, param.index);
+  t.false(includes(result, expected));
+});
+
