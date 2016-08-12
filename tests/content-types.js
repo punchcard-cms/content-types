@@ -69,6 +69,9 @@ test('Content Types', t => {
         source: { value: 'baz2' },
       },
     ],
+    'something-new-other': {
+      text: { value: 'bar' },
+    },
   }).then(result => {
     t.deepEqual(result, barExpected, 'Only method works!');
     t.pass();
