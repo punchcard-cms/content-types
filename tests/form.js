@@ -62,6 +62,21 @@ test('Form Generation, with required attributes and inputs', t => {
   });
 });
 
+test('Form Generation, with identifier automatically required', t => {
+  return types.only('foo').then(result => {
+    return form(result);
+  }).then(rendered => {
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
+    t.true(rendered.hasOwnProperty('html'), 'HTML generated');
+
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
+    t.is(typeof rendered.html, 'string', 'HTML is a string');
+
+    t.true(includes(rendered.html, 'class="required--save">SOme New THING', 'label gets save required classes'));
+    t.true(includes(rendered.html, 'name="new-text-thing--text" aria-required="true" required', 'input gets required--save'));
+  });
+});
+
 test('Form Generation, with required, with classes on a label', t => {
   return types.only('baz').then(rslt => {
     const result = rslt;
