@@ -168,3 +168,33 @@ content.only('my-awesome-content-type').then(type => {
 form.html // string of wrapped form elements; should be placed inside a <form> tag
 form.script // Validation and UX scripts, wrapped for browser via browserify
 ```
+
+### Input Plugins
+
+Forms are created using [input plugins](https://www.npmjs.com/search?q=input-plugin-) which are available as npm modules. Content-types automatically searches for these input plugins inside your application's `node_modules` directory, found using `npm root`.
+
+You can also use your own, non-npm-based input plugins in your application. Content-types uses [Node Config](https://github.com/lorenwest/node-config) for configuration, ([at least for now it does](https://github.com/punchcard-cms/content-types/issues/97)) so to use your own plugins you have two options: `local` and `core`. Both configurations are processed in the same way, so you may add configurations for either or both options.
+
+You may use a string, or an array of strings. They must be full paths, not relative paths, or your application will error.
+
+#### Usage
+
+##### In your application configuration
+
+```
+config = {
+  ...
+  content: {
+    directory: './fixtures/content-types',
+    plugins: {
+      local: {
+        directory: ['/first/path/to/core/input/plugins', '/second/path/to/core/input/plugins'],
+      },
+      core: {
+        directory: '/path/to/core/input/plugins',
+      },
+    },
+  },
+  ...
+ };
+```

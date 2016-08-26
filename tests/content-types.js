@@ -260,7 +260,7 @@ test('Is aware of core plugins', t => {
 
   return types(type).then(result => {
     const merged = result[0];
-    t.is(typeof merged.attributes[1].inputs.core, 'object', 'Should convert publish to save for identifier');
+    t.is(typeof merged.attributes[1].inputs.core, 'object', 'Should contain a core input plugin');
   });
 });
 
