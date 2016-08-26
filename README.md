@@ -185,7 +185,7 @@ You may use a string, or an array of strings. They must be full paths, not relat
 config = {
   ...
   content: {
-    directory: './fixtures/content-types',
+    ...
     plugins: {
       local: {
         directory: ['/first/path/to/core/input/plugins', '/second/path/to/core/input/plugins'],
@@ -194,6 +194,7 @@ config = {
         directory: '/path/to/core/input/plugins',
       },
     },
+    ...
   },
   ...
  };

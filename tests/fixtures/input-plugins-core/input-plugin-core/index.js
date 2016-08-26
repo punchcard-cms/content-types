@@ -33,5 +33,5 @@ module.exports = {
       },
     },
   },
-  html: '<label for="{{text.id}}">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />',
+  html: '<label for="{{core.id}}">{{core.label}}</label><input type="{{core.type}}" id="{{core.id}}" name="{{core.name}}" value="{{core.value}}" placeholder="{{core.placeholder}}" />',
 };

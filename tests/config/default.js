@@ -8,6 +8,9 @@ module.exports = {
       core: {
         directory: path.join(__dirname, '../fixtures/input-plugins-core'),
       },
+      local: {
+        directory: path.join(__dirname, '../fixtures/input-plugins'),
+      },
     },
   },
 };

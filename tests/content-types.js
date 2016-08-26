@@ -264,6 +264,16 @@ test('Is aware of core plugins', t => {
   });
 });
 
+test('Is aware of local plugins', t => {
+  const type = cloneDeep(correctCT);
+  type[0].attributes[1].type = 'local';
+
+  return types(type).then(result => {
+    const merged = result[0];
+    t.is(typeof merged.attributes[1].inputs.local, 'object', 'Should contain a local input plugin');
+  });
+});
+
 test('merged with correct param', t => {
   const testCT = {
     name: 'FooRific',
