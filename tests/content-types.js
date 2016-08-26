@@ -254,6 +254,16 @@ test('identifier converted from publish to save', t => {
   });
 });
 
+test('Is aware of core plugins', t => {
+  const type = cloneDeep(correctCT);
+  type[0].attributes[1].type = 'core';
+
+  return types(type).then(result => {
+    const merged = result[0];
+    t.is(typeof merged.attributes[1].inputs.core, 'object', 'Should convert publish to save for identifier');
+  });
+});
+
 test('merged with correct param', t => {
   const testCT = {
     name: 'FooRific',
