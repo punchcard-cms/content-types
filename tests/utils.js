@@ -10,12 +10,7 @@ const root = exec('npm root').toString().trim();
 const config = {
   content: {
     plugins: {
-      core: {
-        directory: '/path/to/core',
-      },
-      local: {
-        directory: '/path/to/local',
-      },
+      directory: '/path/to/local',
     },
   },
 };
@@ -57,17 +52,15 @@ test('getPluginsDirs returns string directories', t => {
   const result = utils.getPluginsDirs(globalConfig);
 
   t.true(Array.isArray(result), 'Should return an array');
-  t.true(result.length === 3, 'Should have three directories');
+  t.true(result.length === 2, 'Should have two directories');
   t.true(result.indexOf(root) > -1, 'Should have node_modules');
-  t.true(result.indexOf('/path/to/core') > -1, 'Should have core');
   t.true(result.indexOf('/path/to/local') > -1, 'Should have local');
 });
 
 test('getPluginsDirs returns array directories', t => {
   const globalConfig = _.cloneDeep(config);
 
-  globalConfig.content.plugins.core.directory = ['/path/to/core/1', '/path/to/core/2'];
-  globalConfig.content.plugins.local.directory = ['/path/to/local/1', '/path/to/local/2'];
+  globalConfig.content.plugins.directory = ['/path/to/core/1', '/path/to/core/2', '/path/to/local/1', '/path/to/local/2'];
 
   const result = utils.getPluginsDirs(globalConfig);
 
@@ -83,8 +76,7 @@ test('getPluginsDirs returns array directories', t => {
 test('getPluginsDirs returns no duplications', t => {
   const globalConfig = _.cloneDeep(config);
 
-  globalConfig.content.plugins.core.directory = '/path/to/plugin/1';
-  globalConfig.content.plugins.local.directory = ['/path/to/plugin/1', '/path/to/plugin/2', root];
+  globalConfig.content.plugins.directory = ['/path/to/plugin/1', '/path/to/plugin/1', '/path/to/plugin/2', root];
 
   const result = utils.getPluginsDirs(globalConfig);
 

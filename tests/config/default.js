@@ -5,12 +5,7 @@ module.exports = {
   content: {
     directory: './fixtures/content-types',
     plugins: {
-      core: {
-        directory: path.join(__dirname, '../fixtures/input-plugins-core'),
-      },
-      local: {
-        directory: path.join(__dirname, '../fixtures/input-plugins'),
-      },
+      directory: [path.join(__dirname, '../fixtures/input-plugins-core'), path.join(__dirname, '../fixtures/input-plugins')],
     },
   },
 };
