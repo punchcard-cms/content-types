@@ -1,0 +1,5 @@
+{
+  "name": "input-plugin-local",
+  "description": "Local example input plugin",
+  "main": "index.js"
+}

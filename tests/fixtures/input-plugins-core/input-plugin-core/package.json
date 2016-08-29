@@ -1,0 +1,5 @@
+{
+  "name": "input-plugin-core",
+  "description": "Core example input plugin",
+  "main": "index.js"
+}

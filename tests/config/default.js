@@ -4,5 +4,8 @@ const path = require('path');
 module.exports = {
   content: {
     directory: './fixtures/content-types',
-  }
+    plugins: {
+      directory: [path.join(__dirname, '../fixtures/input-plugins-core'), path.join(__dirname, '../fixtures/input-plugins')],
+    },
+  },
 };
