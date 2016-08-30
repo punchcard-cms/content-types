@@ -1,0 +1,8 @@
+name: Content Type FOO
+description: A non-traditionally placed fixture to test the default content-types directory
+id: default-config-foo
+identifier: title
+attributes:
+  - type: text
+    name: Title
+    id: title

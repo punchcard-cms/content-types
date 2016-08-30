@@ -1,0 +1,34 @@
+name: Content Type BAR
+description: Bar Baz Foo
+id: alt-bar
+identifier: something-new
+attributes:
+  - type: text
+    id: something-new
+    name: SOme New THING
+    description: I am the Bar Content Type Config text field description
+  - type: textarea
+    id: my-textarea
+    name: My Awesome Text Area
+    description: I am the Bar Content Type Config textarea description
+  - type: email
+    id: my-email
+    name: Email Address of Awesome
+    repeatable:
+      min: 2
+      max: 4
+  - type: quote
+    id: my-quote
+    repeatable: true
+    name: My Quote
+    description: I am the Bar Content Type Config quote description
+  - type: checkbox
+    id: my-checkbox
+    name: checkbox
+    repeatable:
+      min: 1
+  - type: checkbox
+    id: my-checkbox-other
+    name: checkbox
+    repeatable:
+      max: 10
