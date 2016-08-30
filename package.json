@@ -33,7 +33,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "browserify": "^13.0.1",
-    "config": "^1.20.4",
     "deepmerge": "^0.2.10",
     "js-yaml": "^3.5.3",
     "lodash": "^4.14.1",
