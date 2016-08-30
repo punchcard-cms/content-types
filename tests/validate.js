@@ -1,6 +1,9 @@
 import test from 'ava';
+
 import types from '../lib/content-types';
 import validation from '../lib/form/validate';
+
+import config from './fixtures/config/default';
 
 
 test('Split Values - Pass', t => {
@@ -187,7 +190,7 @@ test('Join Values - Throws Error', t => {
 });
 
 test('Validate - Pass', t => {
-  return types.only('bar').then(ct => {
+  return types.only('bar', {}, '', config).then(ct => {
     const input = {
       'something-new--text': 'Foo bar baz',
       'my-textarea--textarea': 'This is some long text',
@@ -201,7 +204,7 @@ test('Validate - Pass', t => {
 });
 
 test('Validate - Fail', t => {
-  return types.only('bar').then(ct => {
+  return types.only('bar', {}, '', config).then(ct => {
     const input = {
       'something-new--text': 'Foo bar baz',
       'my-textarea--textarea': 'This is some long text',
@@ -219,7 +222,7 @@ test('Validate - Fail', t => {
 });
 
 test('Validate Repeatable - Pass', t => {
-  return types.only('bar').then(ct => {
+  return types.only('bar', {}, '', config).then(ct => {
     const input = {
       'something-new--text': 'Foo bar baz',
       'my-textarea--textarea': 'This is some long text',
@@ -232,7 +235,7 @@ test('Validate Repeatable - Pass', t => {
 });
 
 test('Validate Repeatable - Fail', t => {
-  return types.only('bar').then(ct => {
+  return types.only('bar', {}, '', config).then(ct => {
     const input = {
       'something-new--text': 'Foo bar baz',
       'my-textarea--textarea': 'This is some long text',
@@ -247,7 +250,7 @@ test('Validate Repeatable - Fail', t => {
 });
 
 test('Required - Pass', t => {
-  return types.only('baz').then(ct => {
+  return types.only('baz', {}, '', config).then(ct => {
     const input = {
       'plugin-required-save--text': 'Baz plugin',
       'input-required-save--text': 'Baz input',
@@ -260,7 +263,7 @@ test('Required - Pass', t => {
 });
 
 test('Required Publish with Empty Save', t => {
-  return types.only('baz').then(ct => {
+  return types.only('baz', {}, '', config).then(ct => {
     const input = {
       'plugin-required-save--text': '',
       'input-required-save--text': '',
@@ -278,7 +281,7 @@ test('Required Publish with Empty Save', t => {
 });
 
 test('Required Publish with Empty Publish and Save', t => {
-  return types.only('baz').then(ct => {
+  return types.only('baz', {}, '', config).then(ct => {
     const input = {
       'plugin-required-save--text': '',
       'input-required-publish--text': '',
@@ -297,7 +300,7 @@ test('Required Publish with Empty Publish and Save', t => {
 
 
 test('Required Save with Empty Publish', t => {
-  return types.only('baz').then(ct => {
+  return types.only('baz', {}, '', config).then(ct => {
     const input = {
       'plugin-required-publish--text': '',
       'input-required-publish--text': '',
@@ -310,7 +313,7 @@ test('Required Save with Empty Publish', t => {
 });
 
 test('Validation fails if required check is wrong', t => {
-  return types.only('baz').then(ct => {
+  return types.only('baz', {}, '', config).then(ct => {
     const input = {
       'plugin-required-publish--text': '',
       'input-required-publish--text': '',

@@ -2,8 +2,10 @@ import test from 'ava';
 import cloneDeep from 'lodash/cloneDeep';
 import types from '../lib/content-types';
 import only from '../lib/content-types/only.js';
-import barInput from './fixtures/objects//bar-input.js';
-import barExpected from './fixtures/objects//bar-expected.js';
+
+import config from './fixtures/config/default';
+import barInput from './fixtures/objects/bar-input.js';
+import barExpected from './fixtures/objects/bar-expected.js';
 
 const correctCT = [{
   name: 'Foo',
@@ -78,9 +80,29 @@ test('Content Types', t => {
   });
 });
 
-test('merged', t => {
+test('returns content types from default directory when no parameters', t => {
   return types()
     .then(result => {
+      t.true(Array.isArray(result), 'Should return an array');
+      t.is(result.length, 1, 'Should only have one content type');
+      t.is(result[0].name, 'Content Type FOO', 'Get first content type name');
+      t.is(result[0].description, 'A non-traditionally placed fixture to test the default content-types directory', 'Get first content type desc');
+      t.is(result[0].id, 'default-config-foo', 'Get first content type id');
+    });
+});
+
+test('rejects when config is not an object', t => {
+  return types('', 'config')
+    .catch(err => {
+      t.is(err.message, 'Configuration parameter must be an object', 'Should return an error with non-object config')
+    })
+})
+
+test('returns all types from configured content type directory', t => {
+  return types('', config)
+    .then(result => {
+      t.true(Array.isArray(result), 'Should return an array');
+      t.is(result.length, 3, 'Should only have one content type');
       t.is(result[0].name, 'Content Type BAR', 'Get first content type name');
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
       t.is(result[0].id, 'bar', 'Get first content type id');
