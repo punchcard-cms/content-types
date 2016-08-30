@@ -94,9 +94,9 @@ test('returns content types from default directory when no parameters', t => {
 test('rejects when config is not an object', t => {
   return types('', 'config')
     .catch(err => {
-      t.is(err.message, 'Configuration parameter must be an object', 'Should return an error with non-object config')
-    })
-})
+      t.is(err.message, 'Configuration parameter must be an object', 'Should return an error with non-object config');
+    });
+});
 
 test('returns all types from configured content type directory', t => {
   return types('', config)
