@@ -1,0 +1,34 @@
+name: Content Type FOO
+description: Foo Bar Baz
+id: alt-foo
+identifier: new-text-thing
+attributes:
+  - type: text
+    name: SOme New THING
+    id: new-text-thing
+    description: I am the Foo Content Type Config text field description
+    inputs:
+      text:
+        settings:
+          empty: false
+  - type: email
+    id: email-field
+    name: My email field
+    description: I am the Foo Content Type Config email field description
+  - type: datetime
+    id: date-and-time
+    name: Datetime
+    inputs:
+      datetimeDate:
+        settings:
+          empty: false
+  - type: textarea
+    id: my-textarea
+    name: Super Text Area of Doom!
+    description: I am the Foo Content Type Config textarea description
+    inputs:
+      textarea:
+          validation: bob
+          type: text
+          label: Banana Bob
+          placeholder: 'Writers, start your novels'
