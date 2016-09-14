@@ -17,6 +17,8 @@ Content Types are defined as [YAML](http://yaml.org/) files. They include a name
 ```yaml
 name: My Awesome Content Type
 description: I'm making an awesome new content type!
+identifier: favorite-ranger
+workflow: self-publish
 attributes:
   - type: text
     id: favorite-ranger
@@ -30,26 +32,17 @@ attributes:
     name: Favorite Ice Cream
     inputs:
       select:
-        settings:
-          options:
-            - Chocolate
-            - Vanilla
-            - Strawberry
-        required: true
-  - type: date-range
-    id: awesome-years
-    name: Awesome Years
-    inputs:
-      startDate:
-        label: Start Date
-        settings:
-          year:
-            min: 1980
-      endDate:
-        label: End Date
-        settings:
-          year:
-            max: 2015
+        options:
+          - Chocolate
+          - Vanilla
+          - Strawberry
+        required: publish
+  - type: email
+    id: my-email
+    name: Email Address of Awesome
+    repeatable:
+      min: 2
+      max: 4
 ```
 
 ### Content Types
@@ -134,18 +127,6 @@ contentTypes.only('my-awesome-content-type', config).then(types => {
   // Single Content Type
   console.log(types);
 });
-```
-
-### Input Plugins
-
-The tests for input plugins are available if using the [AVA](https://github.com/sindresorhus/ava) test runner. To do so, add a test file, import the plugin tester, and pass AVA's test and the plugin in to the test scaffolding.
-
-```javascript
-import test from 'ava';
-import types from 'punchcard-content-types';
-import plugin from '../'; // Input Plugin's index.js
-
-types.pluginTests(test, plugin);
 ```
 
 ### Create your forms

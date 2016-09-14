@@ -1,7 +1,10 @@
 import test from 'ava';
+import includes from 'lodash/includes';
+
 import types from '../lib/content-types';
 import form from '../lib/form';
-import includes from 'lodash/includes';
+
+import config from './fixtures/config/default';
 import barInput from './fixtures/objects/bar-expected.js';
 
 test('All Form Goodies', t => {
@@ -11,7 +14,7 @@ test('All Form Goodies', t => {
 });
 
 test('Form Generation', t => {
-  return types.only('foo').then(result => {
+  return types.only('foo', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
@@ -24,7 +27,7 @@ test('Form Generation', t => {
 });
 
 test('Form Generation, Again', t => {
-  return types.only('foo').then(result => {
+  return types.only('foo', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
@@ -36,7 +39,7 @@ test('Form Generation, Again', t => {
 });
 
 test('Form Generation, Again Again', t => {
-  return types.only('bar').then(result => {
+  return types.only('bar', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
@@ -48,7 +51,7 @@ test('Form Generation, Again Again', t => {
 });
 
 test('Form Generation, with required attributes and inputs', t => {
-  return types.only('baz').then(result => {
+  return types.only('baz', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
@@ -62,8 +65,23 @@ test('Form Generation, with required attributes and inputs', t => {
   });
 });
 
+test('Form Generation, with identifier automatically required', t => {
+  return types.only('foo', {}, '', config).then(result => {
+    return form(result);
+  }).then(rendered => {
+    t.true(rendered.hasOwnProperty('scripts'), 'Form JS generated');
+    t.true(rendered.hasOwnProperty('html'), 'HTML generated');
+
+    t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
+    t.is(typeof rendered.html, 'string', 'HTML is a string');
+
+    t.true(includes(rendered.html, 'class="required--save">SOme New THING', 'label gets save required classes'));
+    t.true(includes(rendered.html, 'name="new-text-thing--text" aria-required="true" required', 'input gets required--save'));
+  });
+});
+
 test('Form Generation, with required, with classes on a label', t => {
-  return types.only('baz').then(rslt => {
+  return types.only('baz', {}, '', config).then(rslt => {
     const result = rslt;
     result.attributes[0].html = '<label for="{{text.id}}" class="I-am-a-test this-must__still_be123-here">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
     result.attributes[2].html = '<label class="I-am-a-test this-must__still_be123-here" for="{{text.id}}">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
@@ -82,7 +100,7 @@ test('Form Generation, with required, with classes on a label', t => {
 });
 
 test('Form Generation, with required attributes and inputs that have wrong levels', t => {
-  return types.only('baz').then(rslt => {
+  return types.only('baz', {}, '', config).then(rslt => {
     const result = rslt;
     result.attributes[5].html = '<label for="{{text.id}}" class="I-am-a-test-of-bad-level">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
 
@@ -94,7 +112,7 @@ test('Form Generation, with required attributes and inputs that have wrong level
 });
 
 test('Form Generation, required knows publish vs save', t => {
-  return types.only('baz').then(result => {
+  return types.only('baz', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(includes(rendered.html, '<div id="plugin-required-save" class="form--field required--save">', 'determines save for plugin'));
@@ -105,7 +123,7 @@ test('Form Generation, required knows publish vs save', t => {
 test('Form Generation, with errors', t => {
   let errorMsg;
 
-  return types.only('foo').then(result => {
+  return types.only('foo', {}, '', config).then(result => {
     const errors = {
       [result.attributes[1].inputs.email.name]: 'I am a test error',
     };
@@ -125,7 +143,7 @@ test('Form Generation, with errors', t => {
 });
 
 test('Form Generation, with ux scripts', t => {
-  return types.only('baz').then(result => {
+  return types.only('baz', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(includes(rendered.scripts, 'function selectsRelatedScript(', 'includes ux scripts'));
@@ -133,7 +151,7 @@ test('Form Generation, with ux scripts', t => {
 });
 
 test('Form Generation, overrides options in select', t => {
-  return types.only('baz').then(result => {
+  return types.only('baz', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
     t.true(includes(rendered.html, '<option value="option1" >Option 1</option>', 'determines existence of option1'));

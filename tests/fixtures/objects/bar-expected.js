@@ -184,6 +184,37 @@ const barExpected = {
       type: 'quote',
       validation: 'validation',
     },
+    {
+      description: 'I am the Bar Content Type Config text field repeatable',
+      html: '<label for="{{text.id}}">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />',
+      id: 'something-new',
+      repeatable: {
+        min: 1,
+        max: 9007199254740991,
+      },
+      inputs: [
+        {
+          text: {
+            id: '5ba58361-87b7-4e79-8ea0-e54635ad23bb--0',
+            label: 'SOme New THING',
+            name: 'something-new--text--0',
+            placeholder: 'Text Goes Here',
+            settings: {
+              empty: true,
+            },
+            type: 'text',
+            validation: {
+              function: 'textValidation',
+              on: 'blur',
+            },
+            value: 'foo',
+          },
+        },
+      ],
+      name: 'SOme New THING',
+      type: 'text',
+      validation: 'validation',
+    },
   ],
 };
 

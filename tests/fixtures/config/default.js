@@ -3,6 +3,6 @@ const path = require('path');
 
 module.exports = {
   content: {
-    directory: './fixtures/content-types',
-  }
+    directory: path.join(__dirname, '../content-types/good'),
+  },
 };

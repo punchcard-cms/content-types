@@ -2,8 +2,10 @@ import test from 'ava';
 import cloneDeep from 'lodash/cloneDeep';
 import types from '../lib/content-types';
 import only from '../lib/content-types/only.js';
-import barInput from './fixtures/objects//bar-input.js';
-import barExpected from './fixtures/objects//bar-expected.js';
+
+import config from './fixtures/config/default';
+import barInput from './fixtures/objects/bar-input.js';
+import barExpected from './fixtures/objects/bar-expected.js';
 
 const correctCT = [{
   name: 'Foo',
@@ -69,15 +71,38 @@ test('Content Types', t => {
         source: { value: 'baz2' },
       },
     ],
+    'something-new-other': {
+      text: { value: 'bar' },
+    },
   }).then(result => {
     t.deepEqual(result, barExpected, 'Only method works!');
     t.pass();
   });
 });
 
-test('merged', t => {
+test('returns content types from default directory when no parameters', t => {
   return types()
     .then(result => {
+      t.true(Array.isArray(result), 'Should return an array');
+      t.is(result.length, 1, 'Should only have one content type');
+      t.is(result[0].name, 'Content Type FOO', 'Get first content type name');
+      t.is(result[0].description, 'A non-traditionally placed fixture to test the default content-types directory', 'Get first content type desc');
+      t.is(result[0].id, 'default-config-foo', 'Get first content type id');
+    });
+});
+
+test('rejects when config is not an object', t => {
+  return types('', 'config')
+    .catch(err => {
+      t.is(err.message, 'Configuration parameter must be an object', 'Should return an error with non-object config');
+    });
+});
+
+test('returns all types from configured content type directory', t => {
+  return types('', config)
+    .then(result => {
+      t.true(Array.isArray(result), 'Should return an array');
+      t.is(result.length, 3, 'Should only have one content type');
       t.is(result[0].name, 'Content Type BAR', 'Get first content type name');
       t.is(result[0].description, 'Bar Baz Foo', 'Get first content type desc');
       t.is(result[0].id, 'bar', 'Get first content type id');
@@ -232,6 +257,25 @@ test('reject when identifier has options', t => {
   });
 });
 
+test('identifier gets required-to-save', t => {
+  const type = cloneDeep(correctCT);
+
+  return types(type).then(result => {
+    const merged = result[0];
+    t.is(merged.attributes[0].required, 'save', 'Identifier is required to save');
+  });
+});
+
+test('identifier converted from publish to save', t => {
+  const type = cloneDeep(correctCT);
+  type[0].attributes[0].required = 'publish';
+
+  return types(type).then(result => {
+    const merged = result[0];
+    t.is(merged.attributes[0].required, 'save', 'Should convert publish to save for identifier');
+  });
+});
+
 test('merged with correct param', t => {
   const testCT = {
     name: 'FooRific',
@@ -316,6 +360,10 @@ test('merged with correct param', t => {
         if (attr === merged.attributes[2]) {
           input = Object.keys(attr.inputs);
           t.true(attr.inputs[input[0]].hasOwnProperty('script'), 'Attribute has scripts');
+        }
+
+        if (attr.id === 'username') {
+          t.is(attr.required, 'save', 'Identifier attr must be required to save');
         }
       });
     });
