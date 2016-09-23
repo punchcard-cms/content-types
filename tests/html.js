@@ -41,7 +41,7 @@ test('Add Errors Repeatable - Pass', t => {
     },
     input: {
       description: 'An email input with domain validation',
-      html: '<label for=\'{{email.id}}\'>{{email.label}}</label><input type=\'{{email.type}}\' id=\'{{email.id}}\' name=\'{{email.name}}\' value=\'{{email.value}}\' placeholder=\'{{email.placeholder}}\' />',
+      html: '<label for=\'{{email.id}}\'>{{email.label}} <mark class=\'mark-{{textarea.required}}\'>required to {{textarea.required}}</mark></label><input type=\'{{email.type}}\' id=\'{{email.id}}\' name=\'{{email.name}}\' value=\'{{email.value}}\' placeholder=\'{{email.placeholder}}\' />',
       id: 'my-email',
       inputs: [
         {
