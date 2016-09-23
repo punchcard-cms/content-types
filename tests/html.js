@@ -10,7 +10,7 @@ test('Add Errors - Pass', t => {
     },
     input: {
       description: 'I am the Bar Content Type Config textarea description',
-      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}}</label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
+      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}} <mark class=\'mark-{{textarea.required}}\'>required to {{textarea.required}}</mark></label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
       id: 'my-textarea',
       inputs: {
         textarea: {
@@ -81,10 +81,10 @@ test('Add Errors Repeatable - Pass', t => {
 
 test('Add Required - Pass', t => {
   const param = {
-    html: '"<label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">My Awesome Text Area</label><textarea id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="my-textarea--textarea" placeholder="Type something..." />test</textarea>"',
+    html: '"<label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">My Awesome Text Area <mark class="mark-save">required to save</mark></label><textarea id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="my-textarea--textarea" placeholder="Type something..." />test</textarea>"',
     input: {
       description: 'I am the Bar Content Type Config textarea description',
-      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}}</label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
+      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}} <mark class=\'mark-{{textarea.required}}\'>required to {{textarea.required}}</mark></label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
       id: 'my-textarea',
       inputs: {
         textarea: {
@@ -131,4 +131,3 @@ test('Add Required Checkbox - Pass', t => {
   const result = html.required(param.html, param.input, param.index);
   t.false(includes(result, expected));
 });
-
