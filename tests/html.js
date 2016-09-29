@@ -10,7 +10,7 @@ test('Add Errors - Pass', t => {
     },
     input: {
       description: 'I am the Bar Content Type Config textarea description',
-      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}} <mark class=\'mark-{{textarea.required}}\'>required to {{textarea.required}}</mark></label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
+      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}} <mark class=\'required--{{textarea.required}}\'>required to {{textarea.required}}</mark></label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
       id: 'my-textarea',
       inputs: {
         textarea: {
@@ -41,7 +41,7 @@ test('Add Errors Repeatable - Pass', t => {
     },
     input: {
       description: 'An email input with domain validation',
-      html: '<label for=\'{{email.id}}\'>{{email.label}} <mark class=\'mark-{{textarea.required}}\'>required to {{textarea.required}}</mark></label><input type=\'{{email.type}}\' id=\'{{email.id}}\' name=\'{{email.name}}\' value=\'{{email.value}}\' placeholder=\'{{email.placeholder}}\' />',
+      html: '<label for=\'{{email.id}}\'>{{email.label}} <mark class=\'required--{{textarea.required}}\'>required to {{textarea.required}}</mark></label><input type=\'{{email.type}}\' id=\'{{email.id}}\' name=\'{{email.name}}\' value=\'{{email.value}}\' placeholder=\'{{email.placeholder}}\' />',
       id: 'my-email',
       inputs: [
         {
@@ -81,10 +81,10 @@ test('Add Errors Repeatable - Pass', t => {
 
 test('Add Required - Pass', t => {
   const param = {
-    html: '"<label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">My Awesome Text Area <mark class="mark-save">required to save</mark></label><textarea id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="my-textarea--textarea" placeholder="Type something..." />test</textarea>"',
+    html: '"<label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">My Awesome Text Area <mark class="required--save">required to save</mark></label><textarea id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="my-textarea--textarea" placeholder="Type something..." />test</textarea>"',
     input: {
       description: 'I am the Bar Content Type Config textarea description',
-      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}} <mark class=\'mark-{{textarea.required}}\'>required to {{textarea.required}}</mark></label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
+      html: '<label for=\'{{textarea.id}}\'>{{textarea.label}} <mark class=\'required--{{textarea.required}}\'>required to {{textarea.required}}</mark></label><textarea id=\'{{textarea.id}}\' name=\'{{textarea.name}}\' placeholder=\'{{textarea.placeholder}}\' />{{textarea.value}}</textarea>',
       id: 'my-textarea',
       inputs: {
         textarea: {
@@ -134,10 +134,10 @@ test('Add Required Checkbox - Pass', t => {
 
 test('Add Required and Repeatable - Pass', t => {
   const param = {
-    html: '"<div class="form--repeatable"><label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">Add Your Text <mark class="mark-publish">required to publish</mark></label><input type="text" id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="name--text" placeholder="Text goes here" /></div>"',
+    html: '"<div class="form--repeatable"><label for="91f79620-ba21-4a4a-a4c7-02f456129b0f">Add Your Text <mark class="required--publish">required to publish</mark></label><input type="text" id="91f79620-ba21-4a4a-a4c7-02f456129b0f" name="name--text" placeholder="Text goes here" /></div>"',
     input: {
       description: 'I am the Bar Content Type Config text description',
-      html: '<div class=\'form--repeatable\'><label for=\'{{text.id}}\'>{{text.label}} <mark class=\'mark-{{text.required}}\'>required to {{text.required}}</mark></label><input type=\'{{text.type}}\' id=\'{{text.id}}\' name=\'{{text.name}}\' placeholder=\'{{text.placeholder}}\' /></div>',
+      html: '<div class=\'form--repeatable\'><label for=\'{{text.id}}\'>{{text.label}} <mark class=\'required--{{text.required}}\'>required to {{text.required}}</mark></label><input type=\'{{text.type}}\' id=\'{{text.id}}\' name=\'{{text.name}}\' placeholder=\'{{text.placeholder}}\' /></div>',
       id: 'text-required',
       inputs: {
         text: {
@@ -162,11 +162,11 @@ test('Add Required and Repeatable - Pass', t => {
 
 test('Add Object Required - Pass', t => {
   const param = {
-    html: '"<fieldset id="community-links" class="form--fieldset required--publish"><legend class="form--legend">Object</legend><p class="form--description">I am the Foo Object text description</p><div class="form--field"><label for="91f79620-ba21-4a4a-a4c7-02f456129b0f--1" class="required--publish">Add Your Text <mark class="mark-publish">required to publish</mark></label><input type="text" id="91f79620-ba21-4a4a-a4c7-02f456129b0f--1" name="name--text" placeholder="Text goes here"></div><div class="form--field"><label for="91f79620-ba21-4a4a-a4c7-02f456129b0f--2">Add Your URL <mark class="mark-publish">required to publish</mark></label><input type="url" id="91f79620-ba21-4a4a-a4c7-02f456129b0f--2" name="name--url" placeholder="http://"></div></fieldset>"',
+    html: '"<fieldset id="community-links" class="form--fieldset required--publish"><legend class="form--legend">Object</legend><p class="form--description">I am the Foo Object text description</p><div class="form--field"><label for="91f79620-ba21-4a4a-a4c7-02f456129b0f--1" class="required--publish">Add Your Text <mark class="required--publish">required to publish</mark></label><input type="text" id="91f79620-ba21-4a4a-a4c7-02f456129b0f--1" name="name--text" placeholder="Text goes here"></div><div class="form--field"><label for="91f79620-ba21-4a4a-a4c7-02f456129b0f--2">Add Your URL <mark class="required--publish">required to publish</mark></label><input type="url" id="91f79620-ba21-4a4a-a4c7-02f456129b0f--2" name="name--url" placeholder="http://"></div></fieldset>"',
     input: {
       name: 'Object',
       description: 'I am the Foo Object text description',
-      html: '<fieldset id=\'community-links\' class=\'form--fieldset required--{{text.required}}\'><legend class=\'form--legend\'>{{input.name}}</legend><p class=\'form--description\'>{{input.description}}</p><div class=\'form--field\'><label for=\'{{text.id}}\' class=\'required--{{text.required}}\'>{{text.label}} <mark class=\'mark-{{text.required}}\'>required to {{text.required}}</mark></label><input type=\'{{text.type}}\' id=\'{{text.id}}\' name=\'{{text.name}}\' placeholder=\'{{text.placeholder1}}\'></div><div class=\'form--field\'><label for=\'{{url.id}}\'>{{url.label}} <mark class=\'mark-{{url.required}}\'>required to {{url.required}}</mark></label><input type=\'{{url.type}}\' id=\'{{url.id}}\' name=\'{{url.name}}\' placeholder=\'{{url.placeholder}}\'></div></fieldset>',
+      html: '<fieldset id=\'community-links\' class=\'form--fieldset required--{{text.required}}\'><legend class=\'form--legend\'>{{input.name}}</legend><p class=\'form--description\'>{{input.description}}</p><div class=\'form--field\'><label for=\'{{text.id}}\' class=\'required--{{text.required}}\'>{{text.label}} <mark class=\'required--{{text.required}}\'>required to {{text.required}}</mark></label><input type=\'{{text.type}}\' id=\'{{text.id}}\' name=\'{{text.name}}\' placeholder=\'{{text.placeholder1}}\'></div><div class=\'form--field\'><label for=\'{{url.id}}\'>{{url.label}} <mark class=\'required--{{url.required}}\'>required to {{url.required}}</mark></label><input type=\'{{url.type}}\' id=\'{{url.id}}\' name=\'{{url.name}}\' placeholder=\'{{url.placeholder}}\'></div></fieldset>',
       id: 'object-required',
       inputs: {
         text: {
