@@ -60,8 +60,8 @@ test('Form Generation, with required attributes and inputs', t => {
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
-    t.true(includes(rendered.html, 'class="required--save">Input required save', 'label gets save required classes'));
     t.true(includes(rendered.html, 'name="input-required-save--text" aria-required="true" required', 'input gets required--save'));
+    t.true(includes(rendered.html, '<mark class="required--save">required to save</mark>', 'mark gets added after label text'));
   });
 });
 
@@ -75,16 +75,16 @@ test('Form Generation, with identifier automatically required', t => {
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
-    t.true(includes(rendered.html, 'class="required--save">SOme New THING', 'label gets save required classes'));
     t.true(includes(rendered.html, 'name="new-text-thing--text" aria-required="true" required', 'input gets required--save'));
+    t.true(includes(rendered.html, '<mark class="required--save">required to save</mark>', 'mark gets added after label text'));
   });
 });
 
 test('Form Generation, with required, with classes on a label', t => {
   return types.only('baz', {}, '', config).then(rslt => {
     const result = rslt;
-    result.attributes[0].html = '<label for="{{text.id}}" class="I-am-a-test this-must__still_be123-here">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
-    result.attributes[2].html = '<label class="I-am-a-test this-must__still_be123-here" for="{{text.id}}">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
+    result.attributes[0].html = '<label for="{{text.id}}" class="I-am-a-test this-must__still_be123-here">{{text.label}} <mark class="required--{{text.required}}">required to {{text.required}}</mark></label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
+    result.attributes[2].html = '<label class="I-am-a-test this-must__still_be123-here" for="{{text.id}}">{{text.label}} <mark class="required--{{text.required}}">required to {{text.required}}</mark></label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
 
     return form(result);
   }).then(rendered => {
@@ -94,15 +94,14 @@ test('Form Generation, with required, with classes on a label', t => {
     t.is(typeof rendered.scripts, 'string', 'Scripts is a string');
     t.is(typeof rendered.html, 'string', 'HTML is a string');
 
-    t.true(includes(rendered.html, 'class="I-am-a-test this-must__still_be123-here required--save">Plugin required save', 'label gets save required classes if class after for'));
-    t.true(includes(rendered.html, 'class="I-am-a-test this-must__still_be123-here required--publish" for="', 'label gets save required classes if class before for'));
+    t.true(includes(rendered.html, '<mark class="required--save">required to save</mark>', 'mark gets added after label text'));
   });
 });
 
 test('Form Generation, with required attributes and inputs that have wrong levels', t => {
   return types.only('baz', {}, '', config).then(rslt => {
     const result = rslt;
-    result.attributes[5].html = '<label for="{{text.id}}" class="I-am-a-test-of-bad-level">{{text.label}}</label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
+    result.attributes[5].html = '<label for="{{text.id}}" class="I-am-a-test-of-bad-level">{{text.label}} <mark class="required--{{text.required}}">required to {{text.required}}</mark></label><input type="{{text.type}}" id="{{text.id}}" name="{{text.name}}" value="{{text.value}}" placeholder="{{text.placeholder}}" />';
 
     return form(result);
   }).then(rendered => {
@@ -115,8 +114,8 @@ test('Form Generation, required knows publish vs save', t => {
   return types.only('baz', {}, '', config).then(result => {
     return form(result);
   }).then(rendered => {
-    t.true(includes(rendered.html, '<div id="plugin-required-save" class="form--field required--save">', 'determines save for plugin'));
-    t.true(includes(rendered.html, '<div id="plugin-required-publish" class="form--field required--publish">', 'determines publish for plugin'));
+    t.true(includes(rendered.html, '<mark class="required--save">required to save</mark>', 'determines save for plugin'));
+    t.true(includes(rendered.html, '<mark class="required--publish">required to publish</mark>', 'determines publish for plugin'));
   });
 });
 
@@ -174,4 +173,3 @@ test('Form Generation, with repeatables', t => {
     t.true(includes(rendered.html, '<input type="text" id="c4087332-edda-432d-8464-cc9679742e4e--1" name="my-quote--quote--1" value="foo1" placeholder="Source Material" />'), 'Indexing for input text of second instance');
   });
 });
-
