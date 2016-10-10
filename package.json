@@ -20,7 +20,8 @@
     "nyc": "nyc --all npm run ava",
     "start": "node ./",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "reparo": "reparo -b master"
   },
   "contributors": [
     "Scott Nath <snath@us.ibm.com>",
@@ -61,6 +62,7 @@
     "punchcard-commit-msg": "^1.0.0",
     "punchcard-semantic-release": "^2.0.1",
     "raw-loader": "^0.5.1",
+    "reparo": "^1.1.1-0",
     "semantic-release": "^4.3.5",
     "tap-diff": "^0.1.1"
   },
