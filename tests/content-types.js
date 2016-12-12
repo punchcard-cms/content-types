@@ -1,5 +1,6 @@
 import test from 'ava';
 import cloneDeep from 'lodash/cloneDeep';
+import includes from 'lodash/includes';
 import types from '../lib/content-types';
 import only from '../lib/content-types/only.js';
 
@@ -80,14 +81,10 @@ test('Content Types', t => {
   });
 });
 
-test('returns content types from default directory when no parameters', t => {
+test('returns error on unfound content types default directory because tests have module root as process.cwd', t => {
   return types()
-    .then(result => {
-      t.true(Array.isArray(result), 'Should return an array');
-      t.is(result.length, 1, 'Should only have one content type');
-      t.is(result[0].name, 'Content Type FOO', 'Get first content type name');
-      t.is(result[0].description, 'A non-traditionally placed fixture to test the default content-types directory', 'Get first content type desc');
-      t.is(result[0].id, 'default-config-foo', 'Get first content type id');
+    .catch(err => {
+      t.true(includes(err.message, 'ENOENT: no such file or directory, scandir'), 'Should return an error with non-object config');
     });
 });
 
