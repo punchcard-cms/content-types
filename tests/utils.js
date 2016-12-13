@@ -5,7 +5,7 @@ import path from 'path';
 
 test('Getplugins works with directory value as string', t => {
   const input = {};
-  _.set(input, 'content.plugins.directory', path.join(process.cwd(), 'fixtures'));
+  _.set(input, 'content.plugins.directory', path.join(__dirname, 'fixtures'));
   t.is(typeof utils.getPlugins(input), 'object');
 });
 
