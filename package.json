@@ -63,7 +63,7 @@
     "punchcard-semantic-release": "^2.0.1",
     "raw-loader": "^0.5.1",
     "reparo": "^1.1.1-0",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "^6.3.2",
     "tap-diff": "^0.1.1"
   },
   "engines": {
