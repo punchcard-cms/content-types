@@ -1,6 +1,6 @@
 {
   "name": "punchcard-content-types",
-  "description": "",
+  "description": "Combines with input plugins to create forms with validation. Creates forms for Punchcard CMS.",
   "main": "index.js",
   "version": "0.0.0",
   "keywords": [
