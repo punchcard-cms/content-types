@@ -43,7 +43,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.2",
     "coveralls": "^2.11.9",
     "eslint": "^3.1.1",
     "eslint-config-punchcard": "^1.0.0",
