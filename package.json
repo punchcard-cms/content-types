@@ -33,7 +33,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "browserify": "^14.1.0",
+    "browserify": "^14.3.0",
     "deepmerge": "^1.1.0",
     "js-yaml": "^3.5.3",
     "lodash": "^4.14.1",
@@ -47,7 +47,7 @@
     "coveralls": "^2.11.9",
     "eslint": "^3.1.1",
     "eslint-config-punchcard": "^1.0.0",
-    "ghooks": "^1.2.4",
+    "ghooks": "^2.0.0",
     "input-plugin-checkbox": "^0.3.1",
     "input-plugin-datetime": "^0.2.2",
     "input-plugin-email": "^0.2.0",
