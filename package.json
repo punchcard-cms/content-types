@@ -1,6 +1,6 @@
 {
   "name": "punchcard-content-types",
-  "description": "",
+  "description": "Combines with input plugins to create forms with validation. Creates forms for Punchcard CMS.",
   "main": "index.js",
   "version": "0.0.0",
   "keywords": [
@@ -33,7 +33,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "browserify": "^13.0.1",
+    "browserify": "^14.1.0",
     "deepmerge": "^1.1.0",
     "js-yaml": "^3.5.3",
     "lodash": "^4.14.1",
@@ -43,7 +43,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.2",
     "coveralls": "^2.11.9",
     "eslint": "^3.1.1",
     "eslint-config-punchcard": "^1.0.0",
