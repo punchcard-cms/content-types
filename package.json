@@ -21,7 +21,9 @@
     "start": "node ./",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "reparo": "reparo -b master"
+    "reparo": "reparo -b master",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "contributors": [
     "Scott Nath <snath@us.ibm.com>",
@@ -40,7 +42,8 @@
     "node-dir": "^0.1.11",
     "nunjucks": "^3.0.0",
     "plugabilly": "^0.1.0",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "snyk": "^1.319.1"
   },
   "devDependencies": {
     "ava": "^0.19.1",
@@ -91,5 +94,6 @@
   "release": {
     "analyzeCommits": "punchcard-semantic-release/analyze",
     "generateNotes": "punchcard-semantic-release/notes"
-  }
+  },
+  "snyk": true
 }
